@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relative_layout_wrapper_filter_item"
+    android:layout_width="wrap_content"
+    android:layout_height="70dp"
+    android:gravity="center"
+    android:paddingStart="2.5dp"
+    android:paddingEnd="2.5dp">
+
+    <com.github.siyamed.shapeimageview.RoundedImageView
+        android:id="@+id/round_image_view_filter_item"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/splash_19"
+        app:siBorderType="1"
+        app:siRadius="50dp" />
+
+    <TextView
+        android:id="@+id/text_view_filter_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/round_image_view_filter_item"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp"
+        android:fontFamily="@font/font"
+        android:gravity="center"
+        android:text="Filter"
+        android:textColor="@color/itemColor"
+        android:textSize="10sp" />
+</RelativeLayout>

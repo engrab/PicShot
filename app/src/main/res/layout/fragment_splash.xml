@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/cardColorDarkContent"
+        app:layout_constraintBottom_toTopOf="@+id/relative_layout_splash"
+        app:layout_constraintLeft_toLeftOf="0"
+        app:layout_constraintRight_toRightOf="0"
+        app:layout_constraintTop_toTopOf="0">
+
+        <ImageView
+            android:id="@+id/image_view_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true" />
+
+        <com.pic.shot.splash.SplashView
+            android:id="@+id/splash_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true" />
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative_layout_splash"
+        android:layout_width="match_parent"
+        android:layout_height="155dp"
+        android:background="@color/cardColorDarkContent"
+        app:layout_constraintBottom_toTopOf="@+id/constraint_layout_confirm">
+
+        <LinearLayout
+            android:id="@+id/linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/cardColorDark"
+            android:orientation="horizontal" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_splash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linear_layout"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <LinearLayout
+            android:id="@+id/linear_layout_draw"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/linear_layout_cont"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/cardColorDark"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/linear_layout_mosaic"
+                app:layout_constraintEnd_toEndOf="0"
+                app:layout_constraintStart_toStartOf="0">
+
+                <ImageView
+                    android:id="@+id/image_view_undo"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_undo"
+                    app:layout_constraintBottom_toBottomOf="0"
+                    app:layout_constraintStart_toStartOf="0"
+                    app:layout_constraintTop_toTopOf="0" />
+
+                <ImageView
+                    android:id="@+id/image_view_redo"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_redo"
+                    app:layout_constraintBottom_toBottomOf="0"
+                    app:layout_constraintEnd_toEndOf="0"
+                    app:layout_constraintTop_toTopOf="0" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <SeekBar
+                    android:id="@+id/seekbar_brush"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:max="150"
+                    android:progress="55"
+                    android:progressDrawable="@drawable/progress_drawable"
+                    android:splitTrack="false"
+                    android:thumb="@drawable/progress_thumb" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/cardColorDark"
+        app:layout_constraintBottom_toBottomOf="0">
+
+        <ImageView
+            android:id="@+id/image_view_close"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:padding="9dp"
+            android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="0"
+            app:layout_constraintStart_toStartOf="0"
+            app:layout_constraintTop_toTopOf="0" />
+
+        <TextView
+            android:id="@+id/image_view_shape"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:fontFamily="@font/font"
+            android:gravity="center"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="Shape"
+            android:textColor="@color/mainColor"
+            app:layout_constraintBottom_toBottomOf="0"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintLeft_toLeftOf="0"
+            app:layout_constraintRight_toRightOf="0"
+            app:layout_constraintTop_toTopOf="0" />
+
+        <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+            android:id="@+id/blur_number_button"
+            android:layout_width="90dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            app:backGroundColor="@color/cardColorDarkContent"
+            app:initialNumber="3"
+            app:layout_constraintBottom_toBottomOf="0"
+            app:layout_constraintLeft_toLeftOf="0"
+            app:layout_constraintRight_toRightOf="0"
+            app:layout_constraintTop_toTopOf="0"
+            app:textColor="@color/itemColor"
+            app:textSize="7sp" />
+
+        <TextView
+            android:id="@+id/image_view_draw"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:fontFamily="@font/font"
+            android:gravity="center"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="Draw"
+            android:textColor="@color/itemColor"
+            app:layout_constraintBottom_toBottomOf="0"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintLeft_toLeftOf="0"
+            app:layout_constraintRight_toRightOf="0"
+            app:layout_constraintTop_toTopOf="0" />
+
+        <ImageView
+            android:id="@+id/image_view_save"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:padding="9dp"
+            android:src="@drawable/ic_done"
+            app:layout_constraintBottom_toBottomOf="0"
+            app:layout_constraintEnd_toEndOf="0"
+            app:layout_constraintTop_toTopOf="0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

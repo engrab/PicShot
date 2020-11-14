@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cardColorDarkContent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/backgroundContentColor"
+        app:layout_constraintBottom_toTopOf="@+id/constraint_layout_confirm_compare_beauty"
+        app:layout_constraintLeft_toLeftOf="0"
+        app:layout_constraintRight_toRightOf="0"
+        app:layout_constraintTop_toTopOf="0">
+
+        <com.pic.shot.photoeditor.PhotoEditorView
+            android:id="@+id/photo_editor_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:showBorder="false"
+            app:showIcons="true" />
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout_confirm_compare_beauty"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/cardColorDark"
+        app:layout_constraintBottom_toTopOf="@+id/linear_function">
+
+        <ImageView
+            android:id="@+id/image_view_compare_beauty"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/circle_2"
+            android:onClick="onClick"
+            android:padding="6dp"
+            android:src="@drawable/ic_compare"
+            app:layout_constraintBottom_toBottomOf="0"
+            app:layout_constraintEnd_toEndOf="0"
+            app:layout_constraintStart_toStartOf="0"
+            app:layout_constraintTop_toTopOf="0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_function"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraint_layout_confirm">
+
+        <com.pic.shot.filters.DegreeSeekBar
+            android:id="@+id/degree_seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/mainColor" />
+
+        <RelativeLayout
+            android:id="@+id/relative_layout_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@drawable/background_card"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
+
+            <ImageView
+                android:id="@+id/image_view_reset"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/rotate_white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@+id/image_view_reset"
+                android:text="Reset"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <SeekBar
+                android:id="@+id/seekbar_smooth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:max="1000"
+                android:progressDrawable="@drawable/progress_drawable"
+                android:splitTrack="false"
+                android:thumb="@drawable/progress_thumb" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_function"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:weightSum="3"
+            app:layout_constraintBottom_toTopOf="@+id/constraint_layout_confirm">
+
+            <RelativeLayout
+                android:id="@+id/relative_layout_boobs"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/image_view_boobs"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/boobs" />
+
+                <TextView
+                    android:id="@+id/text_view_boobs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/image_view_boobs"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/font"
+                    android:text="Boobs"
+                    android:textColor="@color/itemColor"
+                    android:textSize="10sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_layout_waist"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/image_view_waist"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/waist" />
+
+                <TextView
+                    android:id="@+id/text_view_Waist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/image_view_waist"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/font"
+                    android:text="Waist"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_layout_hip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/image_view_seat"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/seat" />
+
+                <TextView
+                    android:id="@+id/text_view_Seat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/image_view_seat"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/font"
+                    android:text="Hips"
+                    android:textColor="@color/itemColor"
+                    android:textSize="10sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_layout_face"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/image_view_face"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/beauty_face" />
+
+                <TextView
+                    android:id="@+id/text_view_face"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/image_view_face"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/font"
+                    android:text="Face"
+                    android:textColor="@color/itemColor"
+                    android:textSize="10sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/cardColorDark"
+        app:layout_constraintBottom_toBottomOf="0">
+
+        <ImageView
+            android:id="@+id/image_view_close"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:padding="9dp"
+            android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="0"
+            app:layout_constraintStart_toStartOf="0"
+            app:layout_constraintTop_toTopOf="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Beauty"
+            android:textColor="@color/itemColor"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="0"
+            app:layout_constraintLeft_toLeftOf="0"
+            app:layout_constraintRight_toRightOf="0"
+            app:layout_constraintTop_toTopOf="0" />
+
+        <ImageView
+            android:id="@+id/image_view_save"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:padding="9dp"
+            android:src="@drawable/ic_done"
+            app:layout_constraintBottom_toBottomOf="0"
+            app:layout_constraintEnd_toEndOf="0"
+            app:layout_constraintTop_toTopOf="0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

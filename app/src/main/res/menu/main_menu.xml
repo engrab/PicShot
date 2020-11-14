@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt">
+    <item android:id="@+id/action_share_friend" android:title="@string/share_friend"/>
+    <item android:id="@+id/action_rate_us" android:title="@string/rate_us"/>
+    <item android:id="@+id/action_more_app" android:title="@string/settings"/>
+    <item android:id="@+id/action_privacy_policy" android:title="@string/privacy_policy"/>
+    <item android:id="@+id/action_feedback" android:title="@string/feedback"/>
+</menu>
