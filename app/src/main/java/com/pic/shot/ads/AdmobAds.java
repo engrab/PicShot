@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
@@ -53,9 +54,8 @@ public class AdmobAds {
     }
 
     public static void loadFullAds() {
-        InterstitialAd interstitialAd2 = interstitialAd;
-        if (interstitialAd2 != null) {
-            interstitialAd2.loadAd(new AdRequest.Builder().build());
+        if (interstitialAd != null) {
+            interstitialAd.loadAd(new AdRequest.Builder().build());
         }
     }
 
@@ -106,7 +106,6 @@ public class AdmobAds {
                 AdmobAds.populateNativeAdView(unifiedNativeAd, unifiedNativeAdView);
                 viewGroup.setVisibility(View.VISIBLE);
                 ((View) viewGroup.getParent().getParent()).setVisibility(View.VISIBLE);
-                View view = view;
                 if (view != null) {
                     view.setVisibility(View.GONE);
                 }

@@ -31,6 +31,7 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.ContextCompat;
@@ -41,6 +42,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
 import com.hold1.keyboardheightprovider.KeyboardHeightProvider;
 import com.pic.shot.R;
 import com.pic.shot.adapters.AdjustAdapter;
@@ -89,6 +91,7 @@ import com.pic.shot.utils.AssetUtils;
 import com.pic.shot.utils.FileUtils;
 import com.pic.shot.utils.SharePreferenceUtil;
 import com.pic.shot.utils.SystemUtil;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -96,6 +99,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import org.wysaid.myUtils.MsgUtil;
 import org.wysaid.nativePort.CGENativeLibrary;
 
@@ -278,7 +282,11 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
     }
 
     private void toogleDrawBottomToolbar(boolean z) {
-        int i = !z ? 8 : 0;
+        int i = 8;
+        if (z) {
+            i = 0;
+        }
+//        int i = !z ? 8 : 0;
         this.text_view_draw.setVisibility(i);
         this.text_view_magic.setVisibility(i);
         this.text_view_neon.setVisibility(i);
@@ -1357,20 +1365,19 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
     }
 
     class SaveFilterAsBitmap extends AsyncTask<Void, Void, Bitmap> {
+
         SaveFilterAsBitmap() {
+
         }
 
         public Bitmap doInBackground(Void... voidArr) {
             Bitmap[] bitmapArr = {null};
-            EditImageActivity.this.photo_editor_view.saveGLSurfaceViewAsBitmap(new OnSaveBitmap(bitmapArr) {
-                public final /* synthetic */ Bitmap[] f$0;
+            photo_editor_view.saveGLSurfaceViewAsBitmap(new OnSaveBitmap() {
+                public Bitmap[] f$0;
 
-                {
-                    this.f$0 = r1;
-                }
 
                 public final void onBitmapReady(Bitmap bitmap) {
-                    SaveFilterAsBitmap.lambda$doInBackground$0(this.f$0, bitmap);
+                    bitmapArr[0] = bitmap;
                 }
             });
             while (bitmapArr[0] == null) {
@@ -1383,9 +1390,6 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
             return bitmapArr[0];
         }
 
-        /* synthetic */ void lambda$doInBackground$0(Bitmap[] bitmapArr, Bitmap bitmap) {
-            bitmapArr[0] = bitmap;
-        }
 
         public void onPostExecute(Bitmap bitmap) {
             EditImageActivity.this.photo_editor_view.setImageSource(bitmap);
@@ -1405,15 +1409,10 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
             Bitmap[] bitmapArr = {null};
             while (bitmapArr[0] == null) {
                 try {
-                    EditImageActivity.this.photoEditor.saveStickerAsBitmap(new OnSaveBitmap(bitmapArr) {
-                        public final Bitmap[] f$0;
-
-                        {
-                            this.f$0 = r1;
-                        }
+                    EditImageActivity.this.photoEditor.saveStickerAsBitmap(new OnSaveBitmap() {
 
                         public final void onBitmapReady(Bitmap bitmap) {
-                            SaveStickerAsBitmap.lambda$doInBackground$0(this.f$0, bitmap);
+                            bitmapArr[0] = bitmap;
                         }
                     });
                     while (bitmapArr[0] == null) {
@@ -1427,10 +1426,6 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
                 }
             }
             return bitmapArr[0];
-        }
-
-        /* synthetic */ void lambda$doInBackground$0(Bitmap[] bitmapArr, Bitmap bitmap) {
-            bitmapArr[0] = bitmap;
         }
 
         public void onPostExecute(Bitmap bitmap) {

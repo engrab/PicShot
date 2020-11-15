@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -42,7 +43,9 @@ public class MainActivity extends BaseActivity {
         setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(bundle);
         makeFullScreen();
-        getWindow().setNavigationBarColor(Color.parseColor("#424160"));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(Color.parseColor("#424160"));
+        }
         setContentView((int) R.layout.activity_main);
         findViewById(R.id.relative_layout_edit_photo).setOnClickListener(this.onClickListener);
         findViewById(R.id.relatve_layout_edit).setOnClickListener(this.onClickListener);
@@ -54,7 +57,7 @@ public class MainActivity extends BaseActivity {
         }
         findViewById(R.id.image_view_about).setOnClickListener(new View.OnClickListener() {
             public final void onClick(View view) {
-                MainActivity.this.popupMenu(view);
+               popupMenu(view);
             }
         });
         if (Constants.SHOW_ADS) {

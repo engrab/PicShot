@@ -462,7 +462,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/cardColorDark"
-                    app:layout_scrollFlags="noScroll">
+                    app:layout_scrollFlags="scroll">
 
                     <com.pic.shot.adapters.RecyclerTabLayout
                         android:id="@+id/recycler_tab_layout"

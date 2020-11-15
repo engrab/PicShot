@@ -1,5 +1,8 @@
 package com.pic.shot.activities;
 
+import android.view.Window;
+import android.view.WindowManager;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class BaseActivity extends AppCompatActivity {
@@ -7,8 +10,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void makeFullScreen() {
-        requestWindowFeature(1);
-        getWindow().setFlags(1024, 1024);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
     public void onRequestPermissionsResult(int i, String[] strArr, int[] iArr) {

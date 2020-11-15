@@ -67,8 +67,8 @@ public class MosaicView extends ImageView {
     }
 
     private void init() {
-        setLayerType(2, (Paint) null);
-        setLayerType(1, (Paint) null);
+        setLayerType(LAYER_TYPE_HARDWARE, (Paint) null);
+        setLayerType(LAYER_TYPE_SOFTWARE, (Paint) null);
         Paint paint = new Paint();
         this.blurPaint = paint;
         paint.setAntiAlias(true);
