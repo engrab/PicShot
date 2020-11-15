@@ -1195,15 +1195,15 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
     private void showDiscardDialog() {
         new AlertDialog.Builder(this).setMessage(R.string.dialog_discard_title).setPositiveButton(R.string.discard, new DialogInterface.OnClickListener() {
             public final void onClick(DialogInterface dialogInterface, int i) {
-                EditImageActivity.this.lambda$showDiscardDialog$13$EditImageActivity(dialogInterface, i);
+                finish();
+                AdmobAds.showFullAds((AdmobAds.OnAdsCloseListener) null);
             }
-        }).setNegativeButton("Cancel", LambdaEditImageActivity.INSTANCE).create().show();
-    }
-
-    public /* synthetic */ void lambda$showDiscardDialog$13$EditImageActivity(DialogInterface dialogInterface, int i) {
-        this.currentMode = null;
-        finish();
-        AdmobAds.showFullAds((AdmobAds.OnAdsCloseListener) null);
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).create().show();
     }
 
     public void onDestroy() {

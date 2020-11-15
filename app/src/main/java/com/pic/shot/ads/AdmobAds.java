@@ -61,8 +61,7 @@ public class AdmobAds {
 
     public static boolean showFullAds(OnAdsCloseListener onAdsCloseListener) {
         mOnAdsCloseListener = onAdsCloseListener;
-        InterstitialAd interstitialAd2 = interstitialAd;
-        if (interstitialAd2 == null || !interstitialAd2.isLoaded()) {
+        if (interstitialAd == null || !interstitialAd.isLoaded()) {
             return false;
         }
         interstitialAd.show();

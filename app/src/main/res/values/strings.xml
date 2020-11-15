@@ -6,8 +6,6 @@
     <string name="admob_inter_id">ca-app-pub-3940256099942544/1033173712</string>
     <string name="admob_native_id">ca-app-pub-3940256099942544/2247696110</string>
     <string name="app_name">PicShot</string>
-    <string name="appbar_scrolling_view_behavior">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
-    <string name="bottom_sheet_behavior">com.google.android.material.bottomsheet.BottomSheetBehavior</string>
     <string name="brightness">Brightness</string>
     <string name="camera">Camera</string>
     <string name="character_counter_content_description">Character limit exceeded %1$d of %2$d</string>

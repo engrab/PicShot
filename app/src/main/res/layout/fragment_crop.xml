@@ -11,9 +11,9 @@
         android:layout_height="0dp"
         android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/constraint_layout_confirm_compare_beauty"
-        app:layout_constraintLeft_toLeftOf="0"
-        app:layout_constraintRight_toRightOf="0"
-        app:layout_constraintTop_toTopOf="0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:scv_background_color="@color/backgroundContentColor"
         app:scv_crop_mode="0"
         app:scv_frame_color="@color/mainColor"
@@ -50,10 +50,10 @@
             android:onClick="onClick"
             android:padding="9dp"
             android:src="@drawable/ic_rotate"
-            app:layout_constraintBottom_toBottomOf="0"
-            app:layout_constraintEnd_toEndOf="0"
-            app:layout_constraintStart_toStartOf="0"
-            app:layout_constraintTop_toTopOf="0" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -74,7 +74,7 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/cardColorDark"
-        app:layout_constraintBottom_toBottomOf="0">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageView
             android:id="@+id/image_view_close"
@@ -82,9 +82,9 @@
             android:layout_height="45dp"
             android:padding="8dp"
             android:src="@drawable/ic_close"
-            app:layout_constraintBottom_toBottomOf="0"
-            app:layout_constraintStart_toStartOf="0"
-            app:layout_constraintTop_toTopOf="0" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -93,10 +93,10 @@
             android:text="Crop"
             android:textColor="@color/itemColor"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="0"
-            app:layout_constraintLeft_toLeftOf="0"
-            app:layout_constraintRight_toRightOf="0"
-            app:layout_constraintTop_toTopOf="0" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/image_view_save"
@@ -104,8 +104,8 @@
             android:layout_height="45dp"
             android:padding="8dp"
             android:src="@drawable/ic_done"
-            app:layout_constraintBottom_toBottomOf="0"
-            app:layout_constraintEnd_toEndOf="0"
-            app:layout_constraintTop_toTopOf="0" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

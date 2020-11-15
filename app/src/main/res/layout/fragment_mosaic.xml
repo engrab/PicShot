@@ -11,9 +11,9 @@
         android:layout_height="0dp"
         android:background="@color/backgroundContentColor"
         app:layout_constraintBottom_toTopOf="@+id/constraint_layout_mosaic"
-        app:layout_constraintLeft_toLeftOf="0"
-        app:layout_constraintRight_toRightOf="0"
-        app:layout_constraintTop_toTopOf="0">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/image_view_background"
@@ -34,7 +34,7 @@
         android:id="@+id/constraint_layout_mosaic"
         android:layout_width="match_parent"
         android:layout_height="215dp"
-        app:layout_constraintBottom_toBottomOf="0">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:id="@+id/linear_layout_cont"
@@ -43,7 +43,7 @@
             android:background="@color/cardColorDark"
             android:gravity="center"
             android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="0">
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/image_view_undo"
@@ -53,9 +53,9 @@
                 android:layout_marginEnd="10dp"
                 android:padding="9dp"
                 android:src="@drawable/ic_undo"
-                app:layout_constraintBottom_toBottomOf="0"
-                app:layout_constraintStart_toStartOf="0"
-                app:layout_constraintTop_toTopOf="0" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/image_view_redo"
@@ -65,9 +65,9 @@
                 android:layout_marginEnd="10dp"
                 android:padding="9dp"
                 android:src="@drawable/ic_redo"
-                app:layout_constraintBottom_toBottomOf="0"
-                app:layout_constraintEnd_toEndOf="0"
-                app:layout_constraintTop_toTopOf="0" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -91,7 +91,7 @@
                 android:splitTrack="false"
                 android:thumb="@drawable/progress_thumb"
                 app:layout_constraintBottom_toTopOf="@+id/recycler_view_mosaic"
-                app:layout_constraintTop_toTopOf="0" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_mosaic"
@@ -100,7 +100,7 @@
                 android:orientation="horizontal"
                 android:padding="10dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="0"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/seekbar_mosaic" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -109,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@color/cardColorDark"
-            app:layout_constraintBottom_toBottomOf="0">
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <ImageView
                 android:id="@+id/image_view_close"
@@ -117,9 +117,9 @@
                 android:layout_height="45dp"
                 android:padding="9dp"
                 android:src="@drawable/ic_close"
-                app:layout_constraintBottom_toBottomOf="0"
-                app:layout_constraintStart_toStartOf="0"
-                app:layout_constraintTop_toTopOf="0" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -129,10 +129,10 @@
                 android:text="Mosaic"
                 android:textColor="@color/itemColor"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="0"
-                app:layout_constraintLeft_toLeftOf="0"
-                app:layout_constraintRight_toRightOf="0"
-                app:layout_constraintTop_toTopOf="0" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/image_view_save"
@@ -140,9 +140,9 @@
                 android:layout_height="45dp"
                 android:padding="9dp"
                 android:src="@drawable/ic_done"
-                app:layout_constraintBottom_toBottomOf="0"
-                app:layout_constraintEnd_toEndOf="0"
-                app:layout_constraintTop_toTopOf="0" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
