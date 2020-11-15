@@ -15,7 +15,7 @@
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
         android:src="@drawable/splash_19"
-        app:siBorderType="1"
+        app:siBorderType="fill"
         app:siRadius="50dp" />
 
     <TextView

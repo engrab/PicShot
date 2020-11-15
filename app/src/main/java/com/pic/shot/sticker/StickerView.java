@@ -156,14 +156,14 @@ public class StickerView extends RelativeLayout {
         this.touchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         try {
             typedArray = context.obtainStyledAttributes(attributeSet, new int[]{R.attr.borderAlpha, R.attr.borderColor, R.attr.bringToFrontCurrentSticker, R.attr.showBorder, R.attr.showIcons});
-            this.showIcons = typedArray.getBoolean(4, false);
-            this.showBorder = typedArray.getBoolean(3, false);
-            this.bringToFrontCurrentSticker = typedArray.getBoolean(2, false);
+            this.showIcons = typedArray.getBoolean(ALIGN_BASELINE, false);
+            this.showBorder = typedArray.getBoolean(TEXT_ALIGNMENT_TEXT_END, false);
+            this.bringToFrontCurrentSticker = typedArray.getBoolean(TEXT_ALIGNMENT_TEXT_START, false);
             this.borderPaint.setAntiAlias(true);
-            this.borderPaint.setColor(typedArray.getColor(1, Color.parseColor("#FFFFFF")));
+            this.borderPaint.setColor(typedArray.getColor(FLIP_HORIZONTALLY, Color.parseColor("#FFFFFF")));
             this.borderPaint.setAlpha(typedArray.getInteger(0, 255));
             this.borderPaintRed.setAntiAlias(true);
-            this.borderPaintRed.setColor(typedArray.getColor(1, Color.parseColor("#E13e3e")));
+            this.borderPaintRed.setColor(typedArray.getColor(FLIP_HORIZONTALLY, Color.parseColor("#E13e3e")));
             this.borderPaintRed.setAlpha(typedArray.getInteger(0, 255));
             configDefaultIcons();
             if (typedArray != null) {
@@ -285,7 +285,7 @@ public class StickerView extends RelativeLayout {
     }
 
     public void drawStickers(Canvas canvas) {
-        int i;
+        boolean i;
         float f8;
         float f7;
         float f;
@@ -428,7 +428,7 @@ public class StickerView extends RelativeLayout {
                 float calculateRotation2 = i4;
                 invalidate();
             }
-            i = 0;
+            i = false;
             float f25 = f12;
             float f26 = f4;
             float f27 = f13;

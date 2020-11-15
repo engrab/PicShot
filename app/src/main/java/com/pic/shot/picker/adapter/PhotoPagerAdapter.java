@@ -50,7 +50,7 @@ public class PhotoPagerAdapter extends PagerAdapter {
         }
         image_view_pager.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Context context = context;
+
                 if ((context instanceof Activity) && !((Activity) context).isFinishing()) {
                     ((Activity) context).onBackPressed();
                 }

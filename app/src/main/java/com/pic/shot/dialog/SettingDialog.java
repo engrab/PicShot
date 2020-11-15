@@ -13,24 +13,20 @@ public class SettingDialog {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle("Need Permissions");
         builder.setMessage("This app needs permission to use this feature. You can grant them in app settings.");
-        builder.setPositiveButton("GO SETTINGS", new DialogInterface.OnClickListener(activity) {
-            public final /* synthetic */ Activity f$0;
-
-            {
-                this.f$0 = r1;
-            }
-
-            public final void onClick(DialogInterface dialogInterface, int i) {
-                SettingDialog.lambda$showSettingDialog$0(this.f$0, dialogInterface, i);
+        builder.setPositiveButton("GO SETTINGS", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                openSettings(activity);
             }
         });
-        builder.setNegativeButton("Cancel", $$Lambda$SettingDialog$g_c90akZAWnuUOI5HH12CBF5MlY.INSTANCE);
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
         builder.show();
-    }
-
-    static /* synthetic */ void lambda$showSettingDialog$0(Activity activity, DialogInterface dialogInterface, int i) {
-        dialogInterface.cancel();
-        openSettings(activity);
     }
 
     public static void openSettings(Activity activity) {

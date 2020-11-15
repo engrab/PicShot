@@ -14,17 +14,21 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.widget.ImageView;
+
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.view.ViewCompat;
+
 import com.pic.shot.R;
 import com.pic.shot.photoeditor.BrushDrawingView;
 import com.pic.shot.sticker.Sticker;
 import com.pic.shot.utils.SystemUtil;
+
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Stack;
 
-public class SplashView extends AppCompatImageView {
+public class SplashView extends androidx.appcompat.widget.AppCompatImageView {
     public static final int DRAW = 1;
     public static final int SHAPE = 0;
     private Bitmap bitmap;
