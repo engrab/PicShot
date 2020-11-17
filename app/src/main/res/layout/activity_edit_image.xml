@@ -71,7 +71,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/adsContainer">
 
-            <com.pic.shot.photoeditor.PhotoEditorView
+            <com.pic.editor.photoeditor.PhotoEditorView
                 android:id="@+id/photo_editor_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -464,7 +464,7 @@
                     android:background="@color/cardColorDark"
                     app:layout_scrollFlags="scroll">
 
-                    <com.pic.shot.adapters.RecyclerTabLayout
+                    <com.pic.editor.adapters.RecyclerTabLayout
                         android:id="@+id/recycler_tab_layout"
                         rtl_tabBackground="@color/cardColorDark"
                         rtl_tabIndicatorColor="?attr/colorAccent"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.pic.shot">
+    package="com.pic.editor">
 
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,7 +17,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name="com.pic.shot.PicShot"
+        android:name="com.pic.editor.PicShot"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -28,7 +28,7 @@
         android:theme="@style/AppTheme">
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.pic.shot.provider"
+            android:authorities="com.pic.editor.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -40,7 +40,7 @@
             android:value="@string/admob_app_id" />
 
         <activity
-            android:name="com.pic.shot.activities.SplashActivity"
+            android:name="com.pic.editor.activities.SplashActivity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -50,23 +50,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.pic.shot.activities.MainActivity"
+            android:name="com.pic.editor.activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.pic.shot.activities.EditImageActivity"
+            android:name="com.pic.editor.activities.EditImageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.pic.shot.picker.PhotoPickerActivity"
+            android:name="com.pic.editor.picker.PhotoPickerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.pic.shot.picker.PhotoPagerActivity"
+            android:name="com.pic.editor.picker.PhotoPagerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.pic.shot.activities.ShareActivity"
+            android:name="com.pic.editor.activities.ShareActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -83,7 +83,7 @@
 
         <provider
             android:name="com.google.android.gms.ads.MobileAdsInitProvider"
-            android:authorities="com.pic.shot.mobileadsinitprovider"
+            android:authorities="com.pic.editor.mobileadsinitprovider"
             android:exported="false"
             android:initOrder="100"
             tools:replace="android:authorities" />
@@ -92,7 +92,7 @@
             android:value="@integer/google_play_services_version" />
         <provider
             android:name="androidx.work.impl.WorkManagerInitializer"
-            android:authorities="com.pic.shot.workmanager-init"
+            android:authorities="com.pic.editor.workmanager-init"
             android:directBootAware="false"
             android:exported="false"
             android:multiprocess="true"

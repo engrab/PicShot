@@ -23,7 +23,7 @@
             android:layout_gravity="center"
             android:adjustViewBounds="true" />
 
-        <com.pic.shot.splash.SplashView
+        <com.pic.editor.splash.SplashView
             android:id="@+id/splash_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
