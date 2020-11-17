@@ -13,7 +13,7 @@ import com.pic.editor.picker.entity.PhotoDirectory;
 import java.util.List;
 
 public class PopupDirectoryListAdapter extends BaseAdapter {
-    private List<PhotoDirectory> directories;
+    private final List<PhotoDirectory> directories;
     public RequestManager glide;
 
     public PopupDirectoryListAdapter(RequestManager requestManager, List<PhotoDirectory> list) {
@@ -30,7 +30,7 @@ public class PopupDirectoryListAdapter extends BaseAdapter {
     }
 
     public long getItemId(int i) {
-        return (long) this.directories.get(i).hashCode();
+        return this.directories.get(i).hashCode();
     }
 
     public View getView(int i, View view, ViewGroup viewGroup) {
@@ -52,14 +52,14 @@ public class PopupDirectoryListAdapter extends BaseAdapter {
         public TextView text_view_name;
 
         public ViewHolder(View view) {
-            this.image_view_cover_album = (ImageView) view.findViewById(R.id.image_view_cover_album);
-            this.text_view_name = (TextView) view.findViewById(R.id.text_view_name);
-            this.text_view_count = (TextView) view.findViewById(R.id.text_view_count);
+            this.image_view_cover_album = view.findViewById(R.id.image_view_cover_album);
+            this.text_view_name = view.findViewById(R.id.text_view_name);
+            this.text_view_count = view.findViewById(R.id.text_view_count);
         }
 
         public void bindData(PhotoDirectory photoDirectory) {
             RequestOptions requestOptions = new RequestOptions();
-            ((RequestOptions) ((RequestOptions) requestOptions.dontAnimate()).dontTransform()).override(800, 800);
+            requestOptions.dontAnimate().dontTransform().override(800, 800);
             PopupDirectoryListAdapter.this.glide.setDefaultRequestOptions(requestOptions).load(photoDirectory.getCoverPath()).thumbnail(0.1f).into(this.image_view_cover_album);
             this.text_view_name.setText(photoDirectory.getName());
             TextView textView = this.text_view_count;

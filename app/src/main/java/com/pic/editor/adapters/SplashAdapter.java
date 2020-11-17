@@ -26,11 +26,11 @@ public class SplashAdapter extends RecyclerView.Adapter<SplashAdapter.ViewHolder
         void onSelected(SplashSticker splashSticker);
     }
 
-    public SplashAdapter(Context context2, SplashChangeListener splashChangeListener2, boolean z) {
+    public SplashAdapter(Context context2, SplashChangeListener splashChangeListener2, boolean isSplash) {
         this.context = context2;
         this.splashChangeListener = splashChangeListener2;
         this.borderWidth = SystemUtil.dpToPx(context2, Constants.BORDER_WIDTH_DP);
-        if (z) {
+        if (isSplash) {
             this.splashList.add(new SplashItem(new SplashSticker(AssetUtils.loadBitmapFromAssets(context2, "splash/icons/1_mask.png"), AssetUtils.loadBitmapFromAssets(context2, "splash/icons/1_frame.png")), R.drawable.splash_1));
             this.splashList.add(new SplashItem(new SplashSticker(AssetUtils.loadBitmapFromAssets(context2, "splash/icons/2_mask.png"), AssetUtils.loadBitmapFromAssets(context2, "splash/icons/2_frame.png")), R.drawable.splash_2));
             this.splashList.add(new SplashItem(new SplashSticker(AssetUtils.loadBitmapFromAssets(context2, "splash/icons/3_mask.png"), AssetUtils.loadBitmapFromAssets(context2, "splash/icons/3_frame.png")), R.drawable.splash_3));

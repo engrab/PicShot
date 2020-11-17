@@ -33,9 +33,8 @@ public class AdmobAds {
 
     public static void initFullAds(Context context) {
         if (interstitialAd == null) {
-            InterstitialAd interstitialAd2 = new InterstitialAd(context);
-            interstitialAd = interstitialAd2;
-            interstitialAd2.setAdUnitId(context.getString(R.string.admob_inter_id));
+            interstitialAd = new InterstitialAd(context);
+            interstitialAd.setAdUnitId(context.getString(R.string.admob_inter_id));
             interstitialAd.setAdListener(new AdListener() {
                 public void onAdClosed() {
                     super.onAdClosed();

@@ -1,12 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:background="@drawable/border_radius_dark" android:layout_width="match_parent" android:layout_height="match_parent">
-    <androidx.constraintlayout.widget.ConstraintLayout android:padding="10dp" android:layout_width="match_parent" android:layout_height="match_parent">
-        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent">
-            <ImageView android:id="@+id/image_view_boobs" android:layout_width="300dp" android:layout_height="250dp" android:src="@drawable/waise_instruction" android:adjustViewBounds="true" android:layout_centerHorizontal="true"/>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/border_radius_dark">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view_boobs"
+                android:layout_width="300dp"
+                android:layout_height="250dp"
+                android:layout_centerHorizontal="true"
+                android:adjustViewBounds="true"
+                android:src="@drawable/waise_instruction" />
+
             <com.pic.editor.filters.DegreeSeekBar
-                android:id="@+id/degree_seekBar_control" android:layout_width="wrap_content" android:layout_height="30dp" android:layout_marginTop="20dp" android:layout_below="@+id/image_view_boobs"/>
-            <ImageView android:layout_width="45dp" android:layout_height="50dp" android:layout_marginTop="5dp" android:src="@drawable/swipe" android:layout_below="@+id/degree_seekBar_control" android:layout_centerHorizontal="true"/>
+                android:id="@+id/degree_seekBar_control"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_below="@+id/image_view_boobs"
+                android:layout_marginTop="20dp" />
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/degree_seekBar_control"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/swipe" />
         </RelativeLayout>
-        <TextView android:textSize="16sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="right|center_vertical|center_horizontal|center" android:id="@+id/text_view_done" android:background="@drawable/piclist_selector_btn_done" android:paddingLeft="30dp" android:paddingTop="5dp" android:paddingRight="30dp" android:paddingBottom="5dp" android:layout_width="wrap_content" android:layout_height="40dp" android:layout_marginTop="5dp" android:layout_marginRight="15dp" android:layout_marginBottom="15dp" android:text="Got It" android:fontFamily="@font/font" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintRight_toRightOf="parent"/>
+
+        <TextView
+            android:id="@+id/text_view_done"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="right|center_vertical|center_horizontal|center"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/piclist_selector_btn_done"
+            android:fontFamily="@font/font"
+            android:gravity="center"
+            android:paddingLeft="30dp"
+            android:paddingTop="5dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="5dp"
+            android:text="Got It"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

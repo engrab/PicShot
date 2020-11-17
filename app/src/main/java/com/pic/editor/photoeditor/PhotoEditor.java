@@ -8,6 +8,12 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+
+import androidx.annotation.UiThread;
+
+import com.pic.editor.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,18 +23,18 @@ import org.wysaid.view.ImageGLSurfaceView;
 
 public class PhotoEditor implements BrushViewChangeListener {
     private static final String TAG = "PhotoEditor";
-    private List<View> addedViews;
-    private BrushDrawingView brushDrawingView;
-    private Context context;
-    private View deleteView;
-    private ImageGLSurfaceView glSurfaceView;
-    private boolean isTextPinchZoomable;
-    private Typeface mDefaultEmojiTypeface;
-    private Typeface mDefaultTextTypeface;
+    private final List<View> addedViews;
+    private final BrushDrawingView brushDrawingView;
+    private final Context context;
+    private final View deleteView;
+    private final ImageGLSurfaceView glSurfaceView;
+    private final boolean isTextPinchZoomable;
+    private final Typeface mDefaultEmojiTypeface;
+    private final Typeface mDefaultTextTypeface;
     private final LayoutInflater mLayoutInflater;
     private OnPhotoEditorListener mOnPhotoEditorListener;
     public PhotoEditorView parentView;
-    private List<View> redoViews;
+    private final List<View> redoViews;
 
     public interface OnSaveListener {
         void onFailure(Exception exc);
@@ -186,14 +192,15 @@ public class PhotoEditor implements BrushViewChangeListener {
         clearBrushAllViews();
     }
 
+    @UiThread
     public void clearHelperBox() {
         for (int i = 0; i < this.parentView.getChildCount(); i++) {
             View childAt = this.parentView.getChildAt(i);
-//            FrameLayout frameLayout = (FrameLayout) childAt.findViewById(R.id.frmBorder);
+//            FrameLayout frameLayout = childAt.findViewById(R.id.frmBorder);
 //            if (frameLayout != null) {
 //                frameLayout.setBackgroundResource(0);
 //            }
-//            ImageView imageView = (ImageView) childAt.findViewById(R.id.imgPhotoEditorClose);
+//            ImageView imageView = childAt.findViewById(R.id.imgPhotoEditorClose);
 //            if (imageView != null) {
 //                imageView.setVisibility(View.GONE);
 //            }
@@ -214,7 +221,9 @@ public class PhotoEditor implements BrushViewChangeListener {
     }
 
     public void saveAsFile(final String str, final SaveSettings saveSettings, final OnSaveListener onSaveListener) {
+
         this.parentView.saveGLSurfaceViewAsBitmap(new OnSaveBitmap() {
+
             public void onBitmapReady(Bitmap bitmap) {
                 new AsyncTask<String, String, Exception>() {
                     public void onPreExecute() {
@@ -256,7 +265,7 @@ public class PhotoEditor implements BrushViewChangeListener {
                         }
                         onSaveListener.onFailure(exc);
                     }
-                }.execute(new String[0]);
+                }.execute();
             }
 
             public void onFailure(Exception exc) {

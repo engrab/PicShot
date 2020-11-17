@@ -99,39 +99,39 @@ public class AddTextFragment extends DialogFragment implements View.OnClickListe
     }
 
     public void initView(View view) {
-        this.add_text_edit_text = (CustomEditText) view.findViewById(R.id.add_text_edit_text);
-        this.image_view_keyboard = (ImageView) view.findViewById(R.id.image_view_keyboard);
-        this.image_view_fonts = (ImageView) view.findViewById(R.id.image_view_fonts);
-        this.image_view_color = (ImageView) view.findViewById(R.id.image_view_color);
-        this.image_view_align = (ImageView) view.findViewById(R.id.image_view_align);
-        this.image_view_save_change = (ImageView) view.findViewById(R.id.image_view_save_change);
-        this.scroll_view_change_font_layout = (ScrollView) view.findViewById(R.id.scroll_view_change_font_layout);
-        this.linear_layout_edit_text_tools = (LinearLayout) view.findViewById(R.id.linear_layout_edit_text_tools);
-        this.recycler_view_fonts = (RecyclerView) view.findViewById(R.id.recycler_view_fonts);
-        this.recycler_view_shadows = (RecyclerView) view.findViewById(R.id.recycler_view_shadows);
-        this.scroll_view_change_color_layout = (ScrollView) view.findViewById(R.id.scroll_view_change_color_layout);
-        this.color_carousel_picker = (CarouselPicker) view.findViewById(R.id.color_carousel_picker);
-        this.texture_carousel_picker = (CarouselPicker) view.findViewById(R.id.texture_carousel_picker);
-        this.image_view_text_texture = (ImageView) view.findViewById(R.id.image_view_text_texture);
-        this.image_view_color_down = (ImageView) view.findViewById(R.id.image_view_color_down);
+        this.add_text_edit_text = view.findViewById(R.id.add_text_edit_text);
+        this.image_view_keyboard = view.findViewById(R.id.image_view_keyboard);
+        this.image_view_fonts = view.findViewById(R.id.image_view_fonts);
+        this.image_view_color = view.findViewById(R.id.image_view_color);
+        this.image_view_align = view.findViewById(R.id.image_view_align);
+        this.image_view_save_change = view.findViewById(R.id.image_view_save_change);
+        this.scroll_view_change_font_layout = view.findViewById(R.id.scroll_view_change_font_layout);
+        this.linear_layout_edit_text_tools = view.findViewById(R.id.linear_layout_edit_text_tools);
+        this.recycler_view_fonts = view.findViewById(R.id.recycler_view_fonts);
+        this.recycler_view_shadows = view.findViewById(R.id.recycler_view_shadows);
+        this.scroll_view_change_color_layout = view.findViewById(R.id.scroll_view_change_color_layout);
+        this.color_carousel_picker = view.findViewById(R.id.color_carousel_picker);
+        this.texture_carousel_picker = view.findViewById(R.id.texture_carousel_picker);
+        this.image_view_text_texture = view.findViewById(R.id.image_view_text_texture);
+        this.image_view_color_down = view.findViewById(R.id.image_view_color_down);
         this.view_highlight_text_color = view.findViewById(R.id.view_highlight_text_color);
         this.view_highlight_texture = view.findViewById(R.id.view_highlight_texture);
-        this.textTransparent = (SeekBar) view.findViewById(R.id.seekbar_text_opacity);
-        this.seekbar_text_opacity = (TextView) view.findViewById(R.id.text_view_preview_effect);
-        this.linear_layout_preview = (LinearLayout) view.findViewById(R.id.linear_layout_preview);
-        this.checkbox_background = (CheckBox) view.findViewById(R.id.checkbox_background);
-        this.image_view_background = (ImageView) view.findViewById(R.id.image_view_background);
+        this.textTransparent = view.findViewById(R.id.seekbar_text_opacity);
+        this.seekbar_text_opacity = view.findViewById(R.id.text_view_preview_effect);
+        this.linear_layout_preview = view.findViewById(R.id.linear_layout_preview);
+        this.checkbox_background = view.findViewById(R.id.checkbox_background);
+        this.image_view_background = view.findViewById(R.id.image_view_background);
         this.view_highlight_background_color = view.findViewById(R.id.view_highlight_background_color);
-        this.background_carousel_picker = (CarouselPicker) view.findViewById(R.id.background_carousel_picker);
-        this.seekbar_width = (SeekBar) view.findViewById(R.id.seekbar_width);
-        this.seekbar_height = (SeekBar) view.findViewById(R.id.seekbar_height);
-        this.seekbar_background_opacity = (SeekBar) view.findViewById(R.id.seekbar_background_opacity);
-        this.seekbar_text_size = (SeekBar) view.findViewById(R.id.seekbar_text_size);
-        this.seekbar_radius = (SeekBar) view.findViewById(R.id.seekbar_radius);
+        this.background_carousel_picker = view.findViewById(R.id.background_carousel_picker);
+        this.seekbar_width = view.findViewById(R.id.seekbar_width);
+        this.seekbar_height = view.findViewById(R.id.seekbar_height);
+        this.seekbar_background_opacity = view.findViewById(R.id.seekbar_background_opacity);
+        this.seekbar_text_size = view.findViewById(R.id.seekbar_text_size);
+        this.seekbar_radius = view.findViewById(R.id.seekbar_radius);
     }
 
     public void onItemClick(View view, int i) {
-        FontUtils.setFontByName((Context) Objects.requireNonNull(getContext()), this.seekbar_text_opacity, FontUtils.getListFonts().get(i));
+        FontUtils.setFontByName(Objects.requireNonNull(getContext()), this.seekbar_text_opacity, FontUtils.getListFonts().get(i));
         this.addTextProperties.setFontName(FontUtils.getListFonts().get(i));
         this.addTextProperties.setFontIndex(i);
     }
@@ -235,7 +235,7 @@ public class AddTextFragment extends DialogFragment implements View.OnClickListe
                         AddTextFragment.this.image_view_text_texture.setVisibility(View.INVISIBLE);
                         AddTextFragment.this.view_highlight_texture.setVisibility(View.GONE);
                     }
-                    AddTextFragment.this.seekbar_text_opacity.getPaint().setShader((Shader) null);
+                    AddTextFragment.this.seekbar_text_opacity.getPaint().setShader(null);
                     int i3 = -1;
                     float f2 = ((float) i) + f;
                     if (Math.round(f2) < AddTextFragment.this.colorItems.size()) {
@@ -244,7 +244,7 @@ public class AddTextFragment extends DialogFragment implements View.OnClickListe
                     AddTextFragment.this.seekbar_text_opacity.setTextColor(i3);
                     AddTextFragment.this.addTextProperties.setTextColorIndex(Math.round(f2));
                     AddTextFragment.this.addTextProperties.setTextColor(i3);
-                    AddTextFragment.this.addTextProperties.setTextShader((Shader) null);
+                    AddTextFragment.this.addTextProperties.setTextShader(null);
                 }
             }
         });
@@ -266,7 +266,7 @@ public class AddTextFragment extends DialogFragment implements View.OnClickListe
                     }
                     float f2 = ((float) i) + f;
                     BitmapShader bitmapShader = new BitmapShader(AddTextFragment.this.textTextureItems.get(Math.round(f2)).getBitmap(), Shader.TileMode.MIRROR, Shader.TileMode.MIRROR);
-                    AddTextFragment.this.seekbar_text_opacity.setLayerType(View.LAYER_TYPE_SOFTWARE, (Paint) null);
+                    AddTextFragment.this.seekbar_text_opacity.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
                     AddTextFragment.this.seekbar_text_opacity.getPaint().setShader(bitmapShader);
                     AddTextFragment.this.addTextProperties.setTextShader(bitmapShader);
                     AddTextFragment.this.addTextProperties.setTextShaderIndex(Math.round(f2));
@@ -346,7 +346,7 @@ public class AddTextFragment extends DialogFragment implements View.OnClickListe
                     int blue = Color.blue(parseColor);
                     GradientDrawable gradientDrawable = new GradientDrawable();
                     gradientDrawable.setColor(Color.argb(AddTextFragment.this.addTextProperties.getBackgroundAlpha(), red, green, blue));
-                    gradientDrawable.setCornerRadius((float) SystemUtil.dpToPx((Context) Objects.requireNonNull(AddTextFragment.this.getContext()), AddTextFragment.this.addTextProperties.getBackgroundBorder()));
+                    gradientDrawable.setCornerRadius((float) SystemUtil.dpToPx(Objects.requireNonNull(AddTextFragment.this.getContext()), AddTextFragment.this.addTextProperties.getBackgroundBorder()));
                     AddTextFragment.this.seekbar_text_opacity.setBackground(gradientDrawable);
                     AddTextFragment.this.addTextProperties.setBackgroundColor(parseColor);
                     AddTextFragment.this.addTextProperties.setBackgroundColorIndex(Math.round(f2));
@@ -362,7 +362,7 @@ public class AddTextFragment extends DialogFragment implements View.OnClickListe
             }
 
             public void onProgressChanged(SeekBar seekBar, int i, boolean z) {
-                AddTextFragment.this.seekbar_text_opacity.setPadding(SystemUtil.dpToPx((Context) Objects.requireNonNull(AddTextFragment.this.getContext()), i), AddTextFragment.this.seekbar_text_opacity.getPaddingTop(), SystemUtil.dpToPx(AddTextFragment.this.getContext(), i), AddTextFragment.this.seekbar_text_opacity.getPaddingBottom());
+                AddTextFragment.this.seekbar_text_opacity.setPadding(SystemUtil.dpToPx(Objects.requireNonNull(AddTextFragment.this.getContext()), i), AddTextFragment.this.seekbar_text_opacity.getPaddingTop(), SystemUtil.dpToPx(AddTextFragment.this.getContext(), i), AddTextFragment.this.seekbar_text_opacity.getPaddingBottom());
                 AddTextFragment.this.addTextProperties.setPaddingWidth(i);
             }
         });
@@ -374,7 +374,7 @@ public class AddTextFragment extends DialogFragment implements View.OnClickListe
             }
 
             public void onProgressChanged(SeekBar seekBar, int i, boolean z) {
-                AddTextFragment.this.seekbar_text_opacity.setPadding(AddTextFragment.this.seekbar_text_opacity.getPaddingLeft(), SystemUtil.dpToPx((Context) Objects.requireNonNull(AddTextFragment.this.getContext()), i), AddTextFragment.this.seekbar_text_opacity.getPaddingRight(), SystemUtil.dpToPx(AddTextFragment.this.getContext(), i));
+                AddTextFragment.this.seekbar_text_opacity.setPadding(AddTextFragment.this.seekbar_text_opacity.getPaddingLeft(), SystemUtil.dpToPx(Objects.requireNonNull(AddTextFragment.this.getContext()), i), AddTextFragment.this.seekbar_text_opacity.getPaddingRight(), SystemUtil.dpToPx(AddTextFragment.this.getContext(), i));
                 AddTextFragment.this.addTextProperties.setPaddingHeight(i);
             }
         });
@@ -393,7 +393,7 @@ public class AddTextFragment extends DialogFragment implements View.OnClickListe
                     int blue = Color.blue(AddTextFragment.this.addTextProperties.getBackgroundColor());
                     GradientDrawable gradientDrawable = new GradientDrawable();
                     gradientDrawable.setColor(Color.argb(AddTextFragment.this.addTextProperties.getBackgroundAlpha(), red, green, blue));
-                    gradientDrawable.setCornerRadius((float) SystemUtil.dpToPx((Context) Objects.requireNonNull(AddTextFragment.this.getContext()), AddTextFragment.this.addTextProperties.getBackgroundBorder()));
+                    gradientDrawable.setCornerRadius((float) SystemUtil.dpToPx(Objects.requireNonNull(AddTextFragment.this.getContext()), AddTextFragment.this.addTextProperties.getBackgroundBorder()));
                     AddTextFragment.this.seekbar_text_opacity.setBackground(gradientDrawable);
                 }
             }
@@ -425,13 +425,13 @@ public class AddTextFragment extends DialogFragment implements View.OnClickListe
                 AddTextFragment.this.addTextProperties.setBackgroundBorder(i);
                 if (AddTextFragment.this.addTextProperties.isShowBackground()) {
                     GradientDrawable gradientDrawable = new GradientDrawable();
-                    gradientDrawable.setCornerRadius((float) SystemUtil.dpToPx((Context) Objects.requireNonNull(AddTextFragment.this.getContext()), i));
+                    gradientDrawable.setCornerRadius((float) SystemUtil.dpToPx(Objects.requireNonNull(AddTextFragment.this.getContext()), i));
                     gradientDrawable.setColor(Color.argb(AddTextFragment.this.addTextProperties.getBackgroundAlpha(), Color.red(AddTextFragment.this.addTextProperties.getBackgroundColor()), Color.green(AddTextFragment.this.addTextProperties.getBackgroundColor()), Color.blue(AddTextFragment.this.addTextProperties.getBackgroundColor())));
                     AddTextFragment.this.seekbar_text_opacity.setBackground(gradientDrawable);
                 }
             }
         });
-        if (SharePreferenceUtil.getHeightOfKeyboard((Context) Objects.requireNonNull(getContext())) > 0) {
+        if (SharePreferenceUtil.getHeightOfKeyboard(Objects.requireNonNull(getContext())) > 0) {
             updateAddTextBottomToolbarHeight(SharePreferenceUtil.getHeightOfKeyboard(getContext()));
         }
         initPreviewText();
@@ -450,7 +450,7 @@ public class AddTextFragment extends DialogFragment implements View.OnClickListe
             }
             if (this.addTextProperties.getBackgroundBorder() > 0) {
                 GradientDrawable gradientDrawable = new GradientDrawable();
-                gradientDrawable.setCornerRadius((float) SystemUtil.dpToPx((Context) Objects.requireNonNull(getContext()), this.addTextProperties.getBackgroundBorder()));
+                gradientDrawable.setCornerRadius((float) SystemUtil.dpToPx(Objects.requireNonNull(getContext()), this.addTextProperties.getBackgroundBorder()));
                 gradientDrawable.setColor(Color.argb(this.addTextProperties.getBackgroundAlpha(), Color.red(this.addTextProperties.getBackgroundColor()), Color.green(this.addTextProperties.getBackgroundColor()), Color.blue(this.addTextProperties.getBackgroundColor())));
                 this.seekbar_text_opacity.setBackground(gradientDrawable);
             }
@@ -469,7 +469,7 @@ public class AddTextFragment extends DialogFragment implements View.OnClickListe
             this.add_text_edit_text.setText(this.addTextProperties.getText());
         }
         if (this.addTextProperties.getTextShader() != null) {
-            this.seekbar_text_opacity.setLayerType(View.LAYER_TYPE_SOFTWARE, (Paint) null);
+            this.seekbar_text_opacity.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
             this.seekbar_text_opacity.getPaint().setShader(this.addTextProperties.getTextShader());
         }
         if (this.addTextProperties.getTextAlign() == 4) {
@@ -661,7 +661,7 @@ public class AddTextFragment extends DialogFragment implements View.OnClickListe
         for (int i = 0; i < 42; i++) {
             try {
                 AssetManager assets = getContext().getAssets();
-                arrayList.add(new CarouselPicker.DrawableItem(Drawable.createFromStream(assets.open("text_texture/" + (i + 1) + ".jpg"), (String) null)));
+                arrayList.add(new CarouselPicker.DrawableItem(Drawable.createFromStream(assets.open("text_texture/" + (i + 1) + ".jpg"), null)));
             } catch (Exception e) {
             }
         }

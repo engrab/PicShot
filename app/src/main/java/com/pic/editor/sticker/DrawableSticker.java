@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class DrawableSticker extends Sticker {
     private Drawable drawable;
-    private Rect realBounds = new Rect(0, 0, 500, 500);
+    private Rect realBounds = new Rect(0, 0, 75, 75);
 
     public DrawableSticker(Drawable paramDrawable) {
         drawable = paramDrawable;

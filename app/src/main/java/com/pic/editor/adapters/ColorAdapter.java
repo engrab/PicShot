@@ -18,9 +18,9 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
     private Context context;
     public int selectedColorIndex;
 
-    public ColorAdapter(Context context2, BrushColorListener brushColorListener2) {
+    public ColorAdapter(Context context, BrushColorListener brushColorListener2) {
         this.colors = ColorUtils.lstColorForBrush();
-        this.context = context2;
+        this.context = context;
         this.brushColorListener = brushColorListener2;
     }
 

@@ -17,8 +17,7 @@ public class DrawBitmapModel {
     private List<BrushDrawingView.Vector2> mPositions = new ArrayList(100);
     private int mainIcon;
 
-    /* renamed from: to */
-    private int f321to;
+    private int to;
 
     public DrawBitmapModel(int i, List<Integer> list, boolean z, Context context2) {
         this.mainIcon = i;
@@ -81,10 +80,10 @@ public class DrawBitmapModel {
     }
 
     public int getTo() {
-        return this.f321to;
+        return this.to;
     }
 
     public void setTo(int i) {
-        this.f321to = i;
+        this.to = i;
     }
 }

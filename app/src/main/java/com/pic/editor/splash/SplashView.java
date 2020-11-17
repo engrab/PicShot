@@ -15,6 +15,7 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import androidx.core.view.MotionEventCompat;
 import androidx.core.view.ViewCompat;
 
 import com.pic.editor.R;
@@ -239,63 +240,39 @@ public class SplashView extends androidx.appcompat.widget.AppCompatImageView {
         return sticker2.contains(fArr);
     }
 
-    /* JADX WARNING: Code restructure failed: missing block: B:8:0x001d, code lost:
-        if (r0 != 6) goto L_0x005f;
-     */
-    /* Code decompiled incorrectly, please refer to instructions dump. */
-    public boolean onTouchEvent(MotionEvent r10) {
-        /*
-            r9 = this;
-            int r0 = androidx.core.view.MotionEventCompat.getActionMasked(r10)
-            float r1 = r10.getX()
-            float r2 = r10.getY()
-            r9.currentX = r1
-            r9.currentY = r2
-            r3 = 0
-            r4 = 1
-            if (r0 == 0) goto L_0x0055
-            if (r0 == r4) goto L_0x0051
-            r5 = 2
-            if (r0 == r5) goto L_0x004a
-            r6 = 5
-            if (r0 == r6) goto L_0x0020
-            r5 = 6
-            if (r0 == r5) goto L_0x0047
-            goto L_0x005f
-        L_0x0020:
-            float r6 = r9.calculateDistance(r10)
-            r9.oldDistance = r6
-            float r6 = r9.calculateRotation(r10)
-            r9.oldRotation = r6
-            android.graphics.PointF r6 = r9.calculateMidPoint(r10)
-            r9.midPoint = r6
-            com.pic.shot.sticker.Sticker r6 = r9.sticker
-            if (r6 == 0) goto L_0x0047
-            float r7 = r10.getX(r4)
-            float r8 = r10.getY(r4)
-            boolean r6 = r9.isInStickerArea(r6, r7, r8)
-            if (r6 == 0) goto L_0x0047
-            r9.currentMode = r5
-            goto L_0x005f
-        L_0x0047:
-            r9.currentMode = r3
-            goto L_0x005f
-        L_0x004a:
-            r9.handleCurrentMode(r1, r2, r10)
-            r9.invalidate()
-            goto L_0x005f
-        L_0x0051:
-            r9.onTouchUp(r10)
-            goto L_0x005f
-        L_0x0055:
-            boolean r5 = r9.onTouchDown(r1, r2)
-            if (r5 != 0) goto L_0x005f
-            r9.invalidate()
-            return r3
-        L_0x005f:
-            return r4
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.pic.shot.splash.SplashView.onTouchEvent(android.view.MotionEvent):boolean");
+    public boolean onTouchEvent(MotionEvent motionEvent) {
+        int actionMasked = MotionEventCompat.getActionMasked(motionEvent);
+        float x = motionEvent.getX();
+        float y = motionEvent.getY();
+        this.currentX = x;
+        this.currentY = y;
+        switch (actionMasked) {
+            case 0:
+                if (!onTouchDown(x, y)) {
+                    invalidate();
+                    return false;
+                }
+                break;
+            case 1:
+                onTouchUp(motionEvent);
+                break;
+            case 2:
+                handleCurrentMode(x, y, motionEvent);
+                invalidate();
+                break;
+            case 5:
+                this.oldDistance = calculateDistance(motionEvent);
+                this.oldRotation = calculateRotation(motionEvent);
+                this.midPoint = calculateMidPoint(motionEvent);
+                if (this.sticker != null && isInStickerArea(this.sticker, motionEvent.getX(1), motionEvent.getY(1))) {
+                    this.currentMode = 2;
+                    break;
+                }
+            case 6:
+                this.currentMode = 0;
+                break;
+        }
+        return true;
     }
 
     public void constrainSticker(Sticker sticker2) {

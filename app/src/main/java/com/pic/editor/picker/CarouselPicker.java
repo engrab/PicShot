@@ -56,7 +56,7 @@ public class CarouselPicker extends ViewPager {
         int i3 = 0;
         for (int i4 = 0; i4 < getChildCount(); i4++) {
             View childAt = getChildAt(i4);
-            childAt.measure(i, MeasureSpec.makeMeasureSpec(0, 0));
+            childAt.measure(i, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
             int measuredHeight = childAt.getMeasuredHeight();
             if (measuredHeight > i3) {
                 i3 = measuredHeight;

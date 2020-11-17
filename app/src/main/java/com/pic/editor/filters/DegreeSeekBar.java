@@ -105,7 +105,7 @@ public class DegreeSeekBar extends View {
         this.mCirclePaint.setAntiAlias(true);
     }
 
-    /* access modifiers changed from: protected */
+
     public void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         this.mPointMargin = ((float) w) / ((float) this.mPointCount);
@@ -154,7 +154,6 @@ public class DegreeSeekBar extends View {
         return true;
     }
 
-    /* access modifiers changed from: protected */
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.getClipBounds(this.mCanvasClipBounds);

@@ -2,7 +2,7 @@ package com.pic.editor.picker.entity;
 
 public class Photo {
 
-    /* renamed from: id */
+
     private int id;
     private String path;
 

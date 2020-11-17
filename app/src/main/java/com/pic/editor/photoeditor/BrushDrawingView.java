@@ -27,11 +27,11 @@ public class BrushDrawingView extends View {
     private static final float TOUCH_TOLERANCE = 4.0f;
     private Paint bitmapPaint;
     private int brushBitmapSize;
-    private List<Point> currentBitmapPoint;
+    private final List<Point> currentBitmapPoint;
     private DrawBitmapModel currentMagicBrush;
-    private int distance;
+    private final int distance;
     private int drawMode;
-    private Stack<List<Point>> lstPoints;
+    private final Stack<List<Point>> lstPoints;
     private boolean mBrushDrawMode;
     private float mBrushEraserSize;
     private float mBrushSize;
@@ -43,14 +43,14 @@ public class BrushDrawingView extends View {
     private float mLastTouchY;
     private int mOpacity;
     private Path mPath;
-    private Stack<Point> mPoints;
-    private Stack<List<Point>> mRedoPaths;
+    private final Stack<Point> mPoints;
+    private final Stack<List<Point>> mRedoPaths;
     private float mTouchX;
     private float mTouchY;
-    private Rect tempRect;
+    private final Rect tempRect;
 
     public BrushDrawingView(Context context) {
-        this(context, (AttributeSet) null);
+        this(context, null);
     }
 
     public BrushDrawingView(Context context, AttributeSet attributeSet) {
@@ -100,8 +100,8 @@ public class BrushDrawingView extends View {
     }
 
     private void setupBrushDrawing() {
-        setLayerType(LAYER_TYPE_HARDWARE, (Paint) null);
-        setLayerType(LAYER_TYPE_SOFTWARE, (Paint) null);
+        setLayerType(LAYER_TYPE_HARDWARE, null);
+        setLayerType(LAYER_TYPE_SOFTWARE, null);
         this.mDrawPaint = new Paint();
         this.mPath = new Path();
         this.mDrawPaint.setAntiAlias(true);
@@ -260,8 +260,8 @@ public class BrushDrawingView extends View {
         while (it.hasNext()) {
             Point point = (Point) it.next();
             if (point.vector2 != null) {
-                this.tempRect.set(point.vector2.f317x, point.vector2.f319y, point.vector2.f318x1, point.vector2.f320y1);
-                canvas.drawBitmap(point.vector2.bitmap, (Rect) null, this.tempRect, this.bitmapPaint);
+                this.tempRect.set(point.vector2.x, point.vector2.y, point.vector2.x1, point.vector2.y1);
+                canvas.drawBitmap(point.vector2.bitmap, null, this.tempRect, this.bitmapPaint);
             } else if (point.linePath != null) {
                 canvas.drawPath(point.linePath.getDrawPath(), point.linePath.getDrawPaint());
             }
@@ -291,8 +291,8 @@ public class BrushDrawingView extends View {
     }
 
     public static class LinePath {
-        private Paint mDrawPaint;
-        private Path mDrawPath;
+        private final Paint mDrawPaint;
+        private final Path mDrawPath;
 
         public LinePath(Path path, Paint paint) {
             this.mDrawPaint = new Paint(paint);
@@ -430,23 +430,17 @@ public class BrushDrawingView extends View {
         public Bitmap bitmap;
         int drawableIndex;
 
-        /* renamed from: x */
-        public int f317x;
 
-        /* renamed from: x1 */
-        int f318x1;
-
-        /* renamed from: y */
-        public int f319y;
-
-        /* renamed from: y1 */
-        int f320y1;
+        public int x;
+        int x1;
+        public int y;
+        int y1;
 
         Vector2(int i, int i2, int i3, int i4, int i5, Bitmap bitmap2) {
-            this.f317x = i;
-            this.f319y = i2;
-            this.f318x1 = i3;
-            this.f320y1 = i4;
+            this.x = i;
+            this.y = i2;
+            this.x1 = i3;
+            this.y1 = i4;
             this.bitmap = bitmap2;
             this.drawableIndex = i5;
         }
@@ -470,13 +464,13 @@ public class BrushDrawingView extends View {
         int height = getHeight();
         Bitmap createBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(createBitmap);
-        canvas.drawBitmap(bitmap, (Rect) null, new RectF(0.0f, 0.0f, (float) width, (float) height), (Paint) null);
+        canvas.drawBitmap(bitmap, null, new RectF(0.0f, 0.0f, (float) width, (float) height), null);
         Iterator it = this.mPoints.iterator();
         while (it.hasNext()) {
             Point point = (Point) it.next();
             if (point.vector2 != null) {
-                this.tempRect.set(point.vector2.f317x, point.vector2.f319y, point.vector2.f318x1, point.vector2.f320y1);
-                canvas.drawBitmap(point.vector2.bitmap, (Rect) null, this.tempRect, this.bitmapPaint);
+                this.tempRect.set(point.vector2.x, point.vector2.y, point.vector2.x1, point.vector2.y1);
+                canvas.drawBitmap(point.vector2.bitmap, null, this.tempRect, this.bitmapPaint);
             } else if (point.linePath != null) {
                 canvas.drawPath(point.linePath.getDrawPath(), point.linePath.getDrawPaint());
             }

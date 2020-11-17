@@ -24,7 +24,7 @@ import com.pic.editor.utils.SystemUtil;
 import java.util.Iterator;
 import java.util.Stack;
 
-public class MosaicView extends ImageView {
+public class MosaicView extends androidx.appcompat.widget.AppCompatImageView {
     private Paint bitmapPaint;
     private Paint blurPaint;
     private int brushBitmapSize = 65;

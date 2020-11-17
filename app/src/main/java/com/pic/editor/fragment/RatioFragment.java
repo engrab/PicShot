@@ -87,12 +87,12 @@ public class RatioFragment extends DialogFragment implements AspectRatioPreviewA
         aspectRatioPreviewAdapter.setListener(this);
         RecyclerView recyclerView = (RecyclerView) inflate.findViewById(R.id.recycler_view_ratio);
         this.recycler_view_ratio = recyclerView;
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), 0, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         this.recycler_view_ratio.setAdapter(aspectRatioPreviewAdapter);
         this.aspectRatio = new AspectRatio(1, 1);
         RecyclerView recyclerView2 = (RecyclerView) inflate.findViewById(R.id.recycler_view_background);
         this.recycler_view_background = recyclerView2;
-        recyclerView2.setLayoutManager(new LinearLayoutManager(getContext(), 0, false));
+        recyclerView2.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         this.recycler_view_background.setAdapter(new RatioAdapter(getContext(), this));
         this.recycler_view_background.setVisibility(View.GONE);
         TextView textView = (TextView) inflate.findViewById(R.id.text_view_ratio);
@@ -141,7 +141,7 @@ public class RatioFragment extends DialogFragment implements AspectRatioPreviewA
             }
         });
         RecyclerView recyclerView3 = (RecyclerView) inflate.findViewById(R.id.recycler_vew_border);
-        recyclerView3.setLayoutManager(new LinearLayoutManager(getContext(), 0, false));
+        recyclerView3.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         recyclerView3.setHasFixedSize(true);
         recyclerView3.setAdapter(new ColorAdapter(getContext(), this, true));
         ((SeekBar) inflate.findViewById(R.id.seekbar_padding)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
