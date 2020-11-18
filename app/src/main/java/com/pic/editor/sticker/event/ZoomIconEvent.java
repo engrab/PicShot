@@ -13,7 +13,9 @@ public class ZoomIconEvent implements StickerIconEvent {
 
     public void onActionUp(StickerView paramStickerView, MotionEvent paramMotionEvent) {
         if (paramStickerView.getOnStickerOperationListener() != null) {
-            paramStickerView.getOnStickerOperationListener().onStickerZoomFinished(paramStickerView.getCurrentSticker());
+            if (paramStickerView.getCurrentSticker() != null) {
+                paramStickerView.getOnStickerOperationListener().onStickerZoomFinished(paramStickerView.getCurrentSticker());
+            }
         }
     }
 }
