@@ -7,7 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaScannerConnection;
@@ -1353,11 +1355,13 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
     }
 
     class SaveStickerAsBitmap extends AsyncTask<Void, Void, Bitmap> {
+
         SaveStickerAsBitmap() {
         }
 
         public void onPreExecute() {
             EditImageActivity.this.photo_editor_view.getGLSurfaceView().setAlpha(0.0f);
+
         }
 
         public Bitmap doInBackground(Void... voidArr) {
@@ -1453,6 +1457,24 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
             photo_editor_view.setImageSource(bitmap);
             updateLayout();
         }
+    }
+    public static Bitmap mark(Bitmap src, String watermark, Point location, int color, int alpha, int size, boolean underline) {
+        int w = src.getWidth();
+        int h = src.getHeight();
+        Bitmap result = Bitmap.createBitmap(w, h, src.getConfig());
+
+        Canvas canvas = new Canvas(result);
+        canvas.drawBitmap(src, 0, 0, null);
+
+        Paint paint = new Paint();
+        paint.setColor(color);
+        paint.setAlpha(alpha);
+        paint.setTextSize(size);
+        paint.setAntiAlias(true);
+        paint.setUnderlineText(underline);
+        canvas.drawText(watermark, location.x, location.y, paint);
+
+        return result;
     }
 
     public void updateLayout() {

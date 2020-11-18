@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.pic.editor">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.android.vending.BILLING" />
@@ -17,7 +17,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name="com.pic.editor.PicShot"
+        android:name=".PicShot"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -26,6 +26,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.MyCreationActivity"></activity>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.pic.editor.provider"
@@ -35,61 +37,64 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_app_id" />
 
         <activity
-            android:name="com.pic.editor.activities.SplashActivity"
+            android:name=".activities.SplashActivity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.pic.editor.activities.MainActivity"
+            android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.pic.editor.activities.EditImageActivity"
+            android:name=".activities.EditImageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.pic.editor.picker.PhotoPickerActivity"
+            android:name=".picker.PhotoPickerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.pic.editor.picker.PhotoPagerActivity"
+            android:name=".picker.PhotoPagerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.pic.editor.activities.ShareActivity"
+            android:name=".activities.ShareActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
+
         <activity
             android:name="com.karumi.dexter.DexterActivity"
-            android:theme="@style/Dexter.Internal.Theme.Transparent" />
-<!--        <provider-->
-<!--            android:name="com.squareup.picasso.PicassoProvider"-->
-<!--            android:authorities="com.pic.shot.com.squareup.picasso"-->
-<!--            android:exported="false" />-->
-
+            android:theme="@style/Dexter.Internal.Theme.Transparent" /> <!-- <provider -->
+        <!-- android:name="com.squareup.picasso.PicassoProvider" -->
+        <!-- android:authorities="com.pic.shot.com.squareup.picasso" -->
+        <!-- android:exported="false" /> -->
         <provider
             android:name="com.google.android.gms.ads.MobileAdsInitProvider"
             android:authorities="com.pic.editor.mobileadsinitprovider"
             android:exported="false"
             android:initOrder="100"
             tools:replace="android:authorities" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
         <provider
             android:name="androidx.work.impl.WorkManagerInitializer"
             android:authorities="com.pic.editor.workmanager-init"
@@ -108,13 +113,11 @@
             android:directBootAware="false"
             android:enabled="@bool/enable_system_job_service_default"
             android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-<!--        <service-->
-<!--            android:name="androidx.work.impl.foreground.SystemForegroundService"-->
-<!--            android:directBootAware="false"-->
-<!--            android:enabled="@bool/enable_system_foreground_service_default"-->
-<!--            android:exported="false" />-->
-
+            android:permission="android.permission.BIND_JOB_SERVICE" /> <!-- <service -->
+        <!-- android:name="androidx.work.impl.foreground.SystemForegroundService" -->
+        <!-- android:directBootAware="false" -->
+        <!-- android:enabled="@bool/enable_system_foreground_service_default" -->
+        <!-- android:exported="false" /> -->
         <receiver
             android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
             android:directBootAware="false"
@@ -184,4 +187,5 @@
             android:name="androidx.room.MultiInstanceInvalidationService"
             android:exported="false" />
     </application>
+
 </manifest>

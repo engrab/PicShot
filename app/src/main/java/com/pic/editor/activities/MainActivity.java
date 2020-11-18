@@ -85,6 +85,10 @@ public class MainActivity extends BaseActivity {
                         }
                     }).onSameThread().check();
                     return;
+
+                case R.id.relative_layout_mycreation:
+                    startActivity(new Intent(MainActivity.this,  MyCreationActivity.class));
+                    return;
                 default:
                     return;
             }
@@ -103,6 +107,7 @@ public class MainActivity extends BaseActivity {
         findViewById(R.id.relatve_layout_edit).setOnClickListener(this.onClickListener);
         findViewById(R.id.relative_layout_take_photo).setOnClickListener(this.onClickListener);
         findViewById(R.id.relatve_layout_camera).setOnClickListener(this.onClickListener);
+        findViewById(R.id.relative_layout_mycreation).setOnClickListener(this.onClickListener);
         this.imageCaptureManager = new ImageCaptureManager(this);
         if (SharePreferenceUtil.isPurchased(getApplicationContext())) {
             findViewById(R.id.image_view_remove_ads).setVisibility(View.GONE);
