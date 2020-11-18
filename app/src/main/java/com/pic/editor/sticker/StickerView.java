@@ -15,13 +15,19 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 import android.widget.RelativeLayout;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.MotionEventCompat;
 import androidx.core.view.ViewCompat;
+
 import com.pic.editor.R;
 import com.pic.editor.sticker.event.DeleteIconEvent;
 import com.pic.editor.sticker.event.FlipHorizontallyEvent;
 import com.pic.editor.sticker.event.ZoomIconEvent;
 import com.pic.editor.utils.SystemUtil;
+
 import java.io.File;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -29,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 
 public class StickerView extends RelativeLayout {
     private static final int DEFAULT_MIN_CLICK_DELAY_TIME = 200;
@@ -88,23 +95,23 @@ public class StickerView extends RelativeLayout {
     }
 
     public interface OnStickerOperationListener {
-        void onStickerAdded(Sticker sticker);
+        void onStickerAdded(@NonNull Sticker sticker);
 
-        void onStickerClicked(Sticker sticker);
+        void onStickerClicked(@NonNull Sticker sticker);
 
-        void onStickerDeleted(Sticker sticker);
+        void onStickerDeleted(@NonNull Sticker sticker);
 
-        void onStickerDoubleTapped(Sticker sticker);
+        void onStickerDoubleTapped(@NonNull Sticker sticker);
 
-        void onStickerDragFinished(Sticker sticker);
+        void onStickerDragFinished(@NonNull Sticker sticker);
 
-        void onStickerFlipped(Sticker sticker);
+        void onStickerFlipped(@NonNull Sticker sticker);
 
         void onStickerTouchOutside();
 
-        void onStickerTouchedDown(Sticker sticker);
+        void onStickerTouchedDown(@NonNull Sticker sticker);
 
-        void onStickerZoomFinished(Sticker sticker);
+        void onStickerZoomFinished(@NonNull Sticker sticker);
 
         void onTouchDownForBeauty(float f, float f2);
 
@@ -173,6 +180,7 @@ public class StickerView extends RelativeLayout {
         }
     }
 
+    @RequiresApi(api = 21)
     public StickerView(Context context, AttributeSet attributeSet, int i, int i2) {
         super(context, attributeSet, i, i2);
         this.stickers = new ArrayList();
@@ -245,8 +253,7 @@ public class StickerView extends RelativeLayout {
     }
 
     public void showLastHandlingSticker() {
-        Sticker sticker = this.lastHandlingSticker;
-        if (sticker != null && !sticker.isShow()) {
+        if (this.lastHandlingSticker != null && !this.lastHandlingSticker.isShow()) {
             this.lastHandlingSticker.setShow(true);
             invalidate();
         }
@@ -255,12 +262,12 @@ public class StickerView extends RelativeLayout {
     public void sendToLayer(int i, int i2) {
         if (this.stickers.size() >= i && this.stickers.size() >= i2) {
             this.stickers.remove(i);
-            List<Sticker> list = this.stickers;
-            list.add(i2, list.get(i));
+            this.stickers.add(i2, this.stickers.get(i));
             invalidate();
         }
     }
 
+    /* access modifiers changed from: protected */
     public void onLayout(boolean z, int i, int i2, int i3, int i4) {
         super.onLayout(z, i, i2, i3, i4);
         if (z) {
@@ -271,6 +278,7 @@ public class StickerView extends RelativeLayout {
         }
     }
 
+    /* access modifiers changed from: protected */
     public void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
         if (this.drawCirclePoint && this.onMoving) {
@@ -440,12 +448,22 @@ public class StickerView extends RelativeLayout {
         invalidate();
     }
 
-    public void configIconMatrix(BitmapStickerIcon bitmapStickerIcon, float f, float f2, float f3) {
+    public void configIconMatrix(@NonNull BitmapStickerIcon bitmapStickerIcon, float f, float f2, float f3) {
         bitmapStickerIcon.setX(f);
         bitmapStickerIcon.setY(f2);
         bitmapStickerIcon.getMatrix().reset();
         bitmapStickerIcon.getMatrix().postRotate(f3, (float) (bitmapStickerIcon.getWidth() / 2), (float) (bitmapStickerIcon.getHeight() / 2));
         bitmapStickerIcon.getMatrix().postTranslate(f - ((float) (bitmapStickerIcon.getWidth() / 2)), f2 - ((float) (bitmapStickerIcon.getHeight() / 2)));
+    }
+    public float calculateRotation(MotionEvent motionEvent) {
+        if (motionEvent == null || motionEvent.getPointerCount() < 2) {
+            return 0.0f;
+        }
+        return calculateRotation(motionEvent.getX(0), motionEvent.getY(0), motionEvent.getX(1), motionEvent.getY(1));
+    }
+
+    public float calculateRotation(float f, float f2, float f3, float f4) {
+        return (float) Math.toDegrees(Math.atan2((double) (f2 - f4), (double) (f - f3)));
     }
 
     public boolean onInterceptTouchEvent(MotionEvent motionEvent) {
@@ -457,7 +475,7 @@ public class StickerView extends RelativeLayout {
         }
         this.downX = motionEvent.getX();
         this.downY = motionEvent.getY();
-        return (findCurrentIconTouched() == null && findHandlingSticker() == null) ? false : true;
+        return (mo23151a() == null && mo23161b() == null) ? false : true;
     }
 
     public void setDrawCirclePoint(boolean z) {
@@ -465,24 +483,66 @@ public class StickerView extends RelativeLayout {
         this.onMoving = false;
     }
 
-
-    @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
+        if (this.locked) {
+            return super.onTouchEvent(motionEvent);
+        }
+        switch (MotionEventCompat.getActionMasked(motionEvent)) {
+            case 0:
+                if (!mo23164b(motionEvent)) {
+                    if (this.onStickerOperationListener == null) {
+                        return false;
+                    }
+                    this.onStickerOperationListener.onStickerTouchOutside();
+                    invalidate();
+                    if (!this.drawCirclePoint) {
+                        return false;
+                    }
+                }
+                break;
+            case 1:
+                mo23166c(motionEvent);
+                break;
+            case 2:
+                mo23169d(motionEvent);
+                invalidate();
+                break;
+            case 5:
+                this.oldDistance = mo22609a(motionEvent);
+                this.oldRotation = mo23173f(motionEvent);
+                this.midPoint = mo23171e(motionEvent);
+                if (this.handlingSticker != null && mo23156a(this.handlingSticker, motionEvent.getX(1), motionEvent.getY(1)) && mo23151a() == null) {
+                    this.currentMode = 2;
+                    break;
+                }
+            case 6:
+                if (!(this.currentMode != 2 || this.handlingSticker == null || this.onStickerOperationListener == null)) {
+                    this.onStickerOperationListener.onStickerZoomFinished(this.handlingSticker);
+                }
+                this.currentMode = 0;
+                break;
+        }
+        return true;
+    }
+
+    /* access modifiers changed from: protected */
+    /* renamed from: b */
+    public boolean mo23164b(@NonNull MotionEvent motionEvent) {
         this.currentMode = 1;
         this.downX = motionEvent.getX();
         this.downY = motionEvent.getY();
         this.onMoving = true;
         this.currentMoveingX = motionEvent.getX();
         this.currentMoveingY = motionEvent.getY();
-        this.midPoint = calculateMidPoint();
-        this.oldDistance = calculateDistance(this.midPoint.x, this.midPoint.y, this.downX, this.downY);
-        this.oldRotation = calculateRotation(this.midPoint.x, this.midPoint.y, this.downX, this.downY);
-        this.currentIcon = findCurrentIconTouched();
+        this.midPoint = mo23165c();
+        this.oldDistance = mo23160b(this.midPoint.x, this.midPoint.y, this.downX, this.downY);
+        this.oldRotation = mo23150a(this.midPoint.x, this.midPoint.y, this.downX, this.downY);
+        this.currentIcon = mo23151a();
         if (this.currentIcon != null) {
             this.currentMode = 3;
             this.currentIcon.onActionDown(this, motionEvent);
         } else {
-            this.handlingSticker = findHandlingSticker();
+            this.handlingSticker = mo23161b();
         }
         if (this.handlingSticker != null) {
             this.downMatrix.set(this.handlingSticker.getMatrix());
@@ -506,125 +566,86 @@ public class StickerView extends RelativeLayout {
         }
     }
 
-    public boolean onTouchDown(MotionEvent motionEvent) {
-        this.currentMode = 1;
-        this.downX = motionEvent.getX();
-        this.downY = motionEvent.getY();
-        this.onMoving = true;
-        this.currentMoveingX = motionEvent.getX();
-        this.currentMoveingY = motionEvent.getY();
-        PointF calculateMidPoint = calculateMidPoint();
-        this.midPoint = calculateMidPoint;
-        this.oldDistance = calculateDistance(calculateMidPoint.x, this.midPoint.y, this.downX, this.downY);
-        this.oldRotation = calculateRotation(this.midPoint.x, this.midPoint.y, this.downX, this.downY);
-        BitmapStickerIcon findCurrentIconTouched = findCurrentIconTouched();
-        this.currentIcon = findCurrentIconTouched;
-        if (findCurrentIconTouched != null) {
-            this.currentMode = 3;
-            findCurrentIconTouched.onActionDown(this, motionEvent);
-        } else {
-            this.handlingSticker = findHandlingSticker();
-        }
-        Sticker sticker = this.handlingSticker;
-        if (sticker != null) {
-            this.downMatrix.set(sticker.getMatrix());
-            if (this.bringToFrontCurrentSticker) {
-                this.stickers.remove(this.handlingSticker);
-                this.stickers.add(this.handlingSticker);
-            }
-            OnStickerOperationListener onStickerOperationListener2 = this.onStickerOperationListener;
-            if (onStickerOperationListener2 != null) {
-                onStickerOperationListener2.onStickerTouchedDown(this.handlingSticker);
-            }
-        }
-        if (this.drawCirclePoint) {
-            this.onStickerOperationListener.onTouchDownForBeauty(this.currentMoveingX, this.currentMoveingY);
-            invalidate();
-            return true;
-        } else if (this.currentIcon == null && this.handlingSticker == null) {
-            return false;
-        } else {
-            invalidate();
-            return true;
-        }
-    }
-
-    public void onTouchUp(MotionEvent motionEvent) {
-        Sticker sticker;
-        OnStickerOperationListener onStickerOperationListener2;
-        Sticker sticker2;
-        OnStickerOperationListener onStickerOperationListener3;
-        BitmapStickerIcon bitmapStickerIcon;
+    /* access modifiers changed from: protected */
+    /* renamed from: c */
+    public void mo23166c(@NonNull MotionEvent motionEvent) {
         long uptimeMillis = SystemClock.uptimeMillis();
         this.onMoving = false;
         if (this.drawCirclePoint) {
             this.onStickerOperationListener.onTouchUpForBeauty(motionEvent.getX(), motionEvent.getY());
         }
-        if (!(this.currentMode != 3 || (bitmapStickerIcon = this.currentIcon) == null || this.handlingSticker == null)) {
-            bitmapStickerIcon.onActionUp(this, motionEvent);
+        if (!(this.currentMode != 3 || this.currentIcon == null || this.handlingSticker == null)) {
+            this.currentIcon.onActionUp(this, motionEvent);
         }
-        if (this.currentMode == 1 && Math.abs(motionEvent.getX() - this.downX) < ((float) this.touchSlop) && Math.abs(motionEvent.getY() - this.downY) < ((float) this.touchSlop) && (sticker2 = this.handlingSticker) != null) {
+        if (this.currentMode == 1 && Math.abs(motionEvent.getX() - this.downX) < ((float) this.touchSlop) && Math.abs(motionEvent.getY() - this.downY) < ((float) this.touchSlop) && this.handlingSticker != null) {
             this.currentMode = 4;
-            OnStickerOperationListener onStickerOperationListener4 = this.onStickerOperationListener;
-            if (onStickerOperationListener4 != null) {
-                onStickerOperationListener4.onStickerClicked(sticker2);
+            if (this.onStickerOperationListener != null) {
+                this.onStickerOperationListener.onStickerClicked(this.handlingSticker);
             }
-            if (uptimeMillis - this.lastClickTime < ((long) this.minClickDelayTime) && (onStickerOperationListener3 = this.onStickerOperationListener) != null) {
-                onStickerOperationListener3.onStickerDoubleTapped(this.handlingSticker);
+            if (uptimeMillis - this.lastClickTime < ((long) this.minClickDelayTime) && this.onStickerOperationListener != null) {
+                this.onStickerOperationListener.onStickerDoubleTapped(this.handlingSticker);
             }
         }
-        if (!(this.currentMode != 1 || (sticker = this.handlingSticker) == null || (onStickerOperationListener2 = this.onStickerOperationListener) == null)) {
-            onStickerOperationListener2.onStickerDragFinished(sticker);
+        if (!(this.currentMode != 1 || this.handlingSticker == null || this.onStickerOperationListener == null)) {
+            this.onStickerOperationListener.onStickerDragFinished(this.handlingSticker);
         }
         this.currentMode = 0;
         this.lastClickTime = uptimeMillis;
     }
 
-    public void handleCurrentMode(MotionEvent motionEvent) {
-        BitmapStickerIcon bitmapStickerIcon;
-        int i = this.currentMode;
-        if (i == 1) {
-            this.currentMoveingX = motionEvent.getX();
-            float y = motionEvent.getY();
-            this.currentMoveingY = y;
-            if (this.drawCirclePoint) {
-                this.onStickerOperationListener.onTouchDragForBeauty(this.currentMoveingX, y);
-            }
-            if (this.handlingSticker != null) {
-                this.moveMatrix.set(this.downMatrix);
-                Sticker sticker = this.handlingSticker;
-                if (sticker instanceof BeautySticker) {
-                    BeautySticker beautySticker = (BeautySticker) sticker;
-                    if (beautySticker.getType() == 10 || beautySticker.getType() == 11) {
-                        this.moveMatrix.postTranslate(0.0f, motionEvent.getY() - this.downY);
+    /* access modifiers changed from: protected */
+    /* renamed from: d */
+    public void mo23169d(@NonNull MotionEvent motionEvent) {
+        switch (this.currentMode) {
+            case 1:
+                this.currentMoveingX = motionEvent.getX();
+                this.currentMoveingY = motionEvent.getY();
+                if (this.drawCirclePoint) {
+                    this.onStickerOperationListener.onTouchDragForBeauty(this.currentMoveingX, this.currentMoveingY);
+                }
+                if (this.handlingSticker != null) {
+                    this.moveMatrix.set(this.downMatrix);
+                    if (this.handlingSticker instanceof BeautySticker) {
+                        BeautySticker beautySticker = (BeautySticker) this.handlingSticker;
+                        if (beautySticker.getType() == 10 || beautySticker.getType() == 11) {
+                            this.moveMatrix.postTranslate(0.0f, motionEvent.getY() - this.downY);
+                        } else {
+                            this.moveMatrix.postTranslate(motionEvent.getX() - this.downX, motionEvent.getY() - this.downY);
+                        }
                     } else {
                         this.moveMatrix.postTranslate(motionEvent.getX() - this.downX, motionEvent.getY() - this.downY);
                     }
-                } else {
-                    this.moveMatrix.postTranslate(motionEvent.getX() - this.downX, motionEvent.getY() - this.downY);
+                    this.handlingSticker.setMatrix(this.moveMatrix);
+                    if (this.constrained) {
+                        mo23154a(this.handlingSticker);
+                        return;
+                    }
+                    return;
                 }
-                this.handlingSticker.setMatrix(this.moveMatrix);
-                if (this.constrained) {
-                    constrainSticker(this.handlingSticker);
+                return;
+            case 2:
+                if (this.handlingSticker != null) {
+                    float a = mo22609a(motionEvent);
+                    float f = mo23173f(motionEvent);
+                    this.moveMatrix.set(this.downMatrix);
+                    this.moveMatrix.postScale(a / this.oldDistance, a / this.oldDistance, this.midPoint.x, this.midPoint.y);
+                    this.moveMatrix.postRotate(f - this.oldRotation, this.midPoint.x, this.midPoint.y);
+                    this.handlingSticker.setMatrix(this.moveMatrix);
+                    return;
                 }
-            }
-        } else if (i != 2) {
-            if (i == 3 && this.handlingSticker != null && (bitmapStickerIcon = this.currentIcon) != null) {
-                bitmapStickerIcon.onActionMove(this, motionEvent);
-            }
-        } else if (this.handlingSticker != null) {
-            float calculateDistance = calculateDistance(motionEvent);
-            float calculateRotation = calculateRotation(motionEvent);
-            this.moveMatrix.set(this.downMatrix);
-            Matrix matrix = this.moveMatrix;
-            float f = this.oldDistance;
-            matrix.postScale(calculateDistance / f, calculateDistance / f, this.midPoint.x, this.midPoint.y);
-            this.moveMatrix.postRotate(calculateRotation - this.oldRotation, this.midPoint.x, this.midPoint.y);
-            this.handlingSticker.setMatrix(this.moveMatrix);
+                return;
+            case 3:
+                if (this.handlingSticker != null && this.currentIcon != null) {
+                    this.currentIcon.onActionMove(this, motionEvent);
+                    return;
+                }
+                return;
+            default:
+                return;
         }
     }
 
-    public void zoomAndRotateCurrentSticker(MotionEvent motionEvent) {
+    public void zoomAndRotateCurrentSticker(@NonNull MotionEvent motionEvent) {
         zoomAndRotateSticker(this.handlingSticker, motionEvent);
     }
 
@@ -634,7 +655,7 @@ public class StickerView extends RelativeLayout {
         this.handlingSticker.setMatrix(this.moveMatrix);
     }
 
-    public void zoomAndRotateSticker(Sticker sticker, MotionEvent motionEvent) {
+    public void zoomAndRotateSticker(@Nullable Sticker sticker, @NonNull MotionEvent motionEvent) {
         float f;
         if (sticker != null) {
             boolean z = sticker instanceof BeautySticker;
@@ -647,21 +668,21 @@ public class StickerView extends RelativeLayout {
             if (sticker instanceof TextSticker) {
                 f = this.oldDistance;
             } else {
-                f = calculateDistance(this.midPoint.x, this.midPoint.y, motionEvent.getX(), motionEvent.getY());
+                f = mo23160b(this.midPoint.x, this.midPoint.y, motionEvent.getX(), motionEvent.getY());
             }
-            float calculateRotation = calculateRotation(this.midPoint.x, this.midPoint.y, motionEvent.getX(), motionEvent.getY());
+            float a = mo23150a(this.midPoint.x, this.midPoint.y, motionEvent.getX(), motionEvent.getY());
             this.moveMatrix.set(this.downMatrix);
-            Matrix matrix = this.moveMatrix;
-            float f2 = this.oldDistance;
-            matrix.postScale(f / f2, f / f2, this.midPoint.x, this.midPoint.y);
+            this.moveMatrix.postScale(f / this.oldDistance, f / this.oldDistance, this.midPoint.x, this.midPoint.y);
             if (!z) {
-                this.moveMatrix.postRotate(calculateRotation - this.oldRotation, this.midPoint.x, this.midPoint.y);
+                this.moveMatrix.postRotate(a - this.oldRotation, this.midPoint.x, this.midPoint.y);
             }
             this.handlingSticker.setMatrix(this.moveMatrix);
         }
     }
 
-    public void constrainSticker(Sticker sticker) {
+    /* access modifiers changed from: protected */
+    /* renamed from: a */
+    public void mo23154a(@NonNull Sticker sticker) {
         int width = getWidth();
         int height = getHeight();
         sticker.getMappedCenterPoint(this.currentCenterPoint, this.point, this.tmp);
@@ -681,7 +702,10 @@ public class StickerView extends RelativeLayout {
         sticker.getMatrix().postTranslate(f2, f);
     }
 
-    public BitmapStickerIcon findCurrentIconTouched() {
+    /* access modifiers changed from: protected */
+    @Nullable
+    /* renamed from: a */
+    public BitmapStickerIcon mo23151a() {
         for (BitmapStickerIcon next : this.icons) {
             float x = next.getX() - this.downX;
             float y = next.getY() - this.downY;
@@ -692,23 +716,30 @@ public class StickerView extends RelativeLayout {
         return null;
     }
 
-    public Sticker findHandlingSticker() {
+    /* access modifiers changed from: protected */
+    @Nullable
+    /* renamed from: b */
+    public Sticker mo23161b() {
         for (int size = this.stickers.size() - 1; size >= 0; size--) {
-            if (isInStickerArea(this.stickers.get(size), this.downX, this.downY)) {
+            if (mo23156a(this.stickers.get(size), this.downX, this.downY)) {
                 return this.stickers.get(size);
             }
         }
         return null;
     }
 
-    public boolean isInStickerArea(Sticker sticker, float f, float f2) {
-        float[] fArr = this.tmp;
-        fArr[0] = f;
-        fArr[1] = f2;
-        return sticker.contains(fArr);
+    /* access modifiers changed from: protected */
+    /* renamed from: a */
+    public boolean mo23156a(@NonNull Sticker sticker, float f, float f2) {
+        this.tmp[0] = f;
+        this.tmp[1] = f2;
+        return sticker.contains(this.tmp);
     }
 
-    public PointF calculateMidPoint(MotionEvent motionEvent) {
+    /* access modifiers changed from: protected */
+    @NonNull
+    /* renamed from: e */
+    public PointF mo23171e(@Nullable MotionEvent motionEvent) {
         if (motionEvent == null || motionEvent.getPointerCount() < 2) {
             this.midPoint.set(0.0f, 0.0f);
             return this.midPoint;
@@ -717,41 +748,53 @@ public class StickerView extends RelativeLayout {
         return this.midPoint;
     }
 
-    public PointF calculateMidPoint() {
-        Sticker sticker = this.handlingSticker;
-        if (sticker == null) {
+    /* access modifiers changed from: protected */
+    @NonNull
+    /* renamed from: c */
+    public PointF mo23165c() {
+        if (this.handlingSticker == null) {
             this.midPoint.set(0.0f, 0.0f);
             return this.midPoint;
         }
-        sticker.getMappedCenterPoint(this.midPoint, this.point, this.tmp);
+        this.handlingSticker.getMappedCenterPoint(this.midPoint, this.point, this.tmp);
         return this.midPoint;
     }
 
-    public float calculateRotation(MotionEvent motionEvent) {
+    /* access modifiers changed from: protected */
+    /* renamed from: f */
+    public float mo23173f(@Nullable MotionEvent motionEvent) {
         if (motionEvent == null || motionEvent.getPointerCount() < 2) {
             return 0.0f;
         }
-        return calculateRotation(motionEvent.getX(0), motionEvent.getY(0), motionEvent.getX(1), motionEvent.getY(1));
+        return mo23150a(motionEvent.getX(0), motionEvent.getY(0), motionEvent.getX(1), motionEvent.getY(1));
     }
 
-    public float calculateRotation(float f, float f2, float f3, float f4) {
+    /* access modifiers changed from: protected */
+    /* renamed from: a */
+    public float mo23150a(float f, float f2, float f3, float f4) {
         return (float) Math.toDegrees(Math.atan2((double) (f2 - f4), (double) (f - f3)));
     }
 
-    public float calculateDistance(MotionEvent motionEvent) {
+    /* access modifiers changed from: protected */
+    /* renamed from: a */
+    public float mo22609a(@Nullable MotionEvent motionEvent) {
         if (motionEvent == null || motionEvent.getPointerCount() < 2) {
             return 0.0f;
         }
-        return calculateDistance(motionEvent.getX(0), motionEvent.getY(0), motionEvent.getX(1), motionEvent.getY(1));
+        return mo23160b(motionEvent.getX(0), motionEvent.getY(0), motionEvent.getX(1), motionEvent.getY(1));
     }
 
-    public float calculateDistance(float f, float f2, float f3, float f4) {
+    /* access modifiers changed from: protected */
+    /* renamed from: b */
+    public float mo23160b(float f, float f2, float f3, float f4) {
         double d = (double) (f - f3);
         double d2 = (double) (f2 - f4);
         return (float) Math.sqrt((d * d) + (d2 * d2));
     }
 
-    public void transformSticker(Sticker sticker) {
+    /* access modifiers changed from: protected */
+    /* renamed from: b */
+    public void mo23162b(@Nullable Sticker sticker) {
         if (sticker == null) {
             Log.e(TAG, "transformSticker: the bitmapSticker is null or the bitmapSticker bitmap is null");
             return;
@@ -769,12 +812,13 @@ public class StickerView extends RelativeLayout {
         invalidate();
     }
 
+    /* access modifiers changed from: protected */
     public void onSizeChanged(int i, int i2, int i3, int i4) {
         super.onSizeChanged(i, i2, i3, i4);
         for (int i5 = 0; i5 < this.stickers.size(); i5++) {
             Sticker sticker = this.stickers.get(i5);
             if (sticker != null) {
-                transformSticker(sticker);
+                mo23162b(sticker);
             }
         }
     }
@@ -783,7 +827,7 @@ public class StickerView extends RelativeLayout {
         flip(this.handlingSticker, i);
     }
 
-    public void flip(Sticker sticker, int i) {
+    public void flip(@Nullable Sticker sticker, int i) {
         if (sticker != null) {
             sticker.getCenterPoint(this.midPoint);
             if ((i & 1) > 0) {
@@ -794,15 +838,14 @@ public class StickerView extends RelativeLayout {
                 sticker.getMatrix().preScale(1.0f, -1.0f, this.midPoint.x, this.midPoint.y);
                 sticker.setFlippedVertically(!sticker.isFlippedVertically());
             }
-            OnStickerOperationListener onStickerOperationListener2 = this.onStickerOperationListener;
-            if (onStickerOperationListener2 != null) {
-                onStickerOperationListener2.onStickerFlipped(sticker);
+            if (this.onStickerOperationListener != null) {
+                this.onStickerOperationListener.onStickerFlipped(sticker);
             }
             invalidate();
         }
     }
 
-    public boolean replace(Sticker sticker) {
+    public boolean replace(@Nullable Sticker sticker) {
         return replace(sticker, true);
     }
 
@@ -810,7 +853,7 @@ public class StickerView extends RelativeLayout {
         return this.lastHandlingSticker;
     }
 
-    public boolean replace(Sticker sticker, boolean z) {
+    public boolean replace(@Nullable Sticker sticker, boolean z) {
         float f;
         if (this.handlingSticker == null) {
             this.handlingSticker = this.lastHandlingSticker;
@@ -828,36 +871,30 @@ public class StickerView extends RelativeLayout {
             this.handlingSticker.getMatrix().reset();
             sticker.getMatrix().postTranslate((width - ((float) this.handlingSticker.getWidth())) / 2.0f, (height - ((float) this.handlingSticker.getHeight())) / 2.0f);
             if (width < height) {
-                Sticker sticker2 = this.handlingSticker;
-                if (sticker2 instanceof TextSticker) {
-                    f = width / ((float) sticker2.getWidth());
+                if (this.handlingSticker instanceof TextSticker) {
+                    f = width / ((float) this.handlingSticker.getWidth());
                 } else {
-                    f = width / ((float) sticker2.getDrawable().getIntrinsicWidth());
+                    f = width / ((float) this.handlingSticker.getDrawable().getIntrinsicWidth());
                 }
+            } else if (this.handlingSticker instanceof TextSticker) {
+                f = height / ((float) this.handlingSticker.getHeight());
             } else {
-                Sticker sticker3 = this.handlingSticker;
-                if (sticker3 instanceof TextSticker) {
-                    f = height / ((float) sticker3.getHeight());
-                } else {
-                    f = height / ((float) sticker3.getDrawable().getIntrinsicHeight());
-                }
+                f = height / ((float) this.handlingSticker.getDrawable().getIntrinsicHeight());
             }
             float f2 = f / 2.0f;
             sticker.getMatrix().postScale(f2, f2, width / 2.0f, height / 2.0f);
         }
-        List<Sticker> list = this.stickers;
-        list.set(list.indexOf(this.handlingSticker), sticker);
+        this.stickers.set(this.stickers.indexOf(this.handlingSticker), sticker);
         this.handlingSticker = sticker;
         invalidate();
         return true;
     }
 
-    public boolean remove(Sticker sticker) {
+    public boolean remove(@Nullable Sticker sticker) {
         if (this.stickers.contains(sticker)) {
             this.stickers.remove(sticker);
-            OnStickerOperationListener onStickerOperationListener2 = this.onStickerOperationListener;
-            if (onStickerOperationListener2 != null) {
-                onStickerOperationListener2.onStickerDeleted(sticker);
+            if (this.onStickerOperationListener != null) {
+                this.onStickerOperationListener.onStickerDeleted(sticker);
             }
             if (this.handlingSticker == sticker) {
                 this.handlingSticker = null;
@@ -875,44 +912,47 @@ public class StickerView extends RelativeLayout {
 
     public void removeAllStickers() {
         this.stickers.clear();
-        Sticker sticker = this.handlingSticker;
-        if (sticker != null) {
-            sticker.release();
+        if (this.handlingSticker != null) {
+            this.handlingSticker.release();
             this.handlingSticker = null;
         }
         invalidate();
     }
 
-    public StickerView addSticker(Sticker sticker) {
+    @NonNull
+    public StickerView addSticker(@NonNull Sticker sticker) {
         return addSticker(sticker, 1);
     }
 
-    public StickerView addSticker(final Sticker sticker, final int i) {
+    public StickerView addSticker(@NonNull final Sticker sticker, final int i) {
         if (ViewCompat.isLaidOut(this)) {
-            addStickerImmediately(sticker, i);
+            mo23155a(sticker, i);
         } else {
             post(new Runnable() {
                 public void run() {
-                    StickerView.this.addStickerImmediately(sticker, i);
+                    StickerView.this.mo23155a(sticker, i);
                 }
             });
         }
         return this;
     }
 
-    public void addStickerImmediately(Sticker sticker, int i) {
-        setStickerPosition(sticker, i);
+    /* access modifiers changed from: protected */
+    /* renamed from: a */
+    public void mo23155a(@NonNull Sticker sticker, int i) {
+        mo23163b(sticker, i);
         sticker.getMatrix().postScale(1.0f, 1.0f, (float) getWidth(), (float) getHeight());
         this.handlingSticker = sticker;
         this.stickers.add(sticker);
-        OnStickerOperationListener onStickerOperationListener2 = this.onStickerOperationListener;
-        if (onStickerOperationListener2 != null) {
-            onStickerOperationListener2.onStickerAdded(sticker);
+        if (this.onStickerOperationListener != null) {
+            this.onStickerOperationListener.onStickerAdded(sticker);
         }
         invalidate();
     }
 
-    public void setStickerPosition(Sticker sticker, int i) {
+    /* access modifiers changed from: protected */
+    /* renamed from: b */
+    public void mo23163b(@NonNull Sticker sticker, int i) {
         float f;
         float width = ((float) getWidth()) - ((float) sticker.getWidth());
         float height = ((float) getHeight()) - ((float) sticker.getHeight());
@@ -922,22 +962,21 @@ public class StickerView extends RelativeLayout {
             if (beautySticker.getType() == 0) {
                 width /= 3.0f;
             } else if (beautySticker.getType() == 1) {
-                width = (2.0f * width) / 3.0f;
+                width = (width * 2.0f) / 3.0f;
             } else if (beautySticker.getType() == 2) {
                 width /= 2.0f;
             } else if (beautySticker.getType() == 4) {
                 width /= 2.0f;
             } else if (beautySticker.getType() == 10) {
                 width /= 2.0f;
-                f = (2.0f * f) / 3.0f;
+                f = (f * 2.0f) / 3.0f;
             } else if (beautySticker.getType() == 11) {
                 width /= 2.0f;
-                f = (3.0f * f) / 2.0f;
+                f = (f * 3.0f) / 2.0f;
             }
         } else {
-            float f2 = (i & 2) > 0 ? height / 4.0f : (i & 16) > 0 ? height * 0.75f : height / 2.0f;
+            f = (i & 2) > 0 ? height / 4.0f : (i & 16) > 0 ? height * 0.75f : height / 2.0f;
             width = (i & 4) > 0 ? width / 4.0f : (i & 8) > 0 ? width * 0.75f : width / 2.0f;
-            f = f2;
         }
         sticker.getMatrix().postTranslate(width, f);
     }
@@ -946,13 +985,14 @@ public class StickerView extends RelativeLayout {
         this.onStickerOperationListener.onStickerDoubleTapped(this.handlingSticker);
     }
 
-    public float[] getStickerPoints(Sticker sticker) {
+    @NonNull
+    public float[] getStickerPoints(@Nullable Sticker sticker) {
         float[] fArr = new float[8];
         getStickerPoints(sticker, fArr);
         return fArr;
     }
 
-    public void getStickerPoints(Sticker sticker, float[] fArr) {
+    public void getStickerPoints(@Nullable Sticker sticker, @NonNull float[] fArr) {
         if (sticker == null) {
             Arrays.fill(fArr, 0.0f);
             return;
@@ -961,14 +1001,15 @@ public class StickerView extends RelativeLayout {
         sticker.getMappedPoints(fArr, this.bounds);
     }
 
-    public void save(File file) {
+    public void save(@NonNull File file) {
         try {
             StickerUtils.saveImageToGallery(file, createBitmap());
             StickerUtils.notifySystemGallery(getContext(), file);
-        } catch (IllegalArgumentException | IllegalStateException e) {
+        } catch (IllegalArgumentException | IllegalStateException unused) {
         }
     }
 
+    @NonNull
     public Bitmap createBitmap() throws OutOfMemoryError {
         this.handlingSticker = null;
         Bitmap createBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
@@ -984,12 +1025,14 @@ public class StickerView extends RelativeLayout {
         return getStickerCount() == 0;
     }
 
+    @NonNull
     public StickerView setLocked(boolean z) {
         this.locked = z;
         invalidate();
         return this;
     }
 
+    @NonNull
     public StickerView setMinClickDelayTime(int i) {
         this.minClickDelayTime = i;
         return this;
@@ -1003,30 +1046,35 @@ public class StickerView extends RelativeLayout {
         return this.constrained;
     }
 
+    @NonNull
     public StickerView setConstrained(boolean z) {
         this.constrained = z;
         postInvalidate();
         return this;
     }
 
-    public StickerView setOnStickerOperationListener(OnStickerOperationListener onStickerOperationListener) {
-        this.onStickerOperationListener = onStickerOperationListener;
+    @NonNull
+    public StickerView setOnStickerOperationListener(@Nullable OnStickerOperationListener onStickerOperationListener2) {
+        this.onStickerOperationListener = onStickerOperationListener2;
         return this;
     }
 
+    @Nullable
     public OnStickerOperationListener getOnStickerOperationListener() {
         return this.onStickerOperationListener;
     }
 
+    @Nullable
     public Sticker getCurrentSticker() {
         return this.handlingSticker;
     }
 
+    @NonNull
     public List<BitmapStickerIcon> getIcons() {
         return this.icons;
     }
 
-    public void setIcons(List<BitmapStickerIcon> list) {
+    public void setIcons(@NonNull List<BitmapStickerIcon> list) {
         this.icons.clear();
         this.icons.addAll(list);
         invalidate();

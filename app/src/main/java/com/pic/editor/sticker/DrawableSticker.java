@@ -4,38 +4,53 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+
 import java.util.Objects;
 
 public class DrawableSticker extends Sticker {
     private Drawable drawable;
     private Rect realBounds = new Rect(0, 0, 75, 75);
 
-    public DrawableSticker(Drawable paramDrawable) {
-        drawable = paramDrawable;
+    public DrawableSticker(Drawable drawable2) {
+        this.drawable = drawable2;
     }
 
-    public void draw(Canvas paramCanvas) {
-        paramCanvas.save();
-        paramCanvas.concat(getMatrix());
+    @NonNull
+    public Drawable getDrawable() {
+        return this.drawable;
+    }
+
+    public DrawableSticker setDrawable(@NonNull Drawable drawable2) {
+        this.drawable = drawable2;
+        return this;
+    }
+
+    public void draw(@NonNull Canvas canvas) {
+        canvas.save();
+        canvas.concat(getMatrix());
         this.drawable.setBounds(this.realBounds);
-        this.drawable.draw(paramCanvas);
-        paramCanvas.restore();
+        this.drawable.draw(canvas);
+        canvas.restore();
+    }
+
+    @NonNull
+    public DrawableSticker setAlpha(@IntRange(from = 0, to = 255) int i) {
+        this.drawable.setAlpha(i);
+        return this;
     }
 
     public int getAlpha() {
         return this.drawable.getAlpha();
     }
 
-    public Drawable getDrawable() {
-        return this.drawable;
+    public int getWidth() {
+        return this.drawable.getIntrinsicWidth();
     }
 
     public int getHeight() {
-        return drawable.getIntrinsicHeight();
-    }
-
-    public int getWidth() {
-        return drawable.getIntrinsicWidth();
+        return this.drawable.getIntrinsicHeight();
     }
 
     public void release() {
@@ -43,15 +58,5 @@ public class DrawableSticker extends Sticker {
         if (this.drawable != null) {
             this.drawable = null;
         }
-    }
-
-    public DrawableSticker setAlpha(int paramInt) {
-        this.drawable.setAlpha(paramInt);
-        return this;
-    }
-
-    public DrawableSticker setDrawable(Drawable paramDrawable) {
-        this.drawable = paramDrawable;
-        return this;
     }
 }
