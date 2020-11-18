@@ -46,18 +46,17 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:background="@drawable/rectangle_item"
                 android:orientation="horizontal"
-                android:paddingTop="5.0dp"
-                android:paddingRight="5.0dp">
+                android:layout_margin="5.0dp">
 
                 <ImageView
                     android:id="@+id/Iv_deledt_img_list"
-                    android:layout_width="30.0dp"
+                    android:layout_width="30dp"
                     android:layout_height="30.0dp"
                     android:layout_gravity="center"
                     android:layout_marginRight="5.0dp"
                     android:layout_weight="1.0"
-                    appCompat:tint="@color/mainColor"
                     android:src="@drawable/ic_baseline_delete_24"
                     />
 
@@ -76,7 +75,6 @@
                     android:layout_height="30.0dp"
                     android:layout_gravity="center"
                     android:layout_weight="1.0"
-                    appCompat:tint="@color/mainColor"
                     android:src="@drawable/ic_wallpaper" />
             </LinearLayout>
         </LinearLayout>

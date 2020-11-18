@@ -105,6 +105,7 @@ import org.wysaid.myUtils.MsgUtil;
 import org.wysaid.nativePort.CGENativeLibrary;
 
 public class EditImageActivity extends BaseActivity implements OnPhotoEditorListener, View.OnClickListener, StickerAdapter.OnClickStickerListener, CropFragment.OnCropPhoto, BrushColorListener, BrushMagicListener, RatioFragment.RatioSaveListener, SplashFragment.SplashDialogListener, BeautyFragment.OnBeautySave, MosaicFragment.MosaicDialogListener, ToolsAdapter.OnItemSelected, FilterListener, AdjustListener {
+
     private static final String TAG = "EditImageActivity";
     public static final String KEY_IMAGE_PATH = "path";
     private ConstraintLayout constraint_layout_adjust;
@@ -128,6 +129,30 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
     public List<Bitmap> lstBitmapWithOverlay = new ArrayList();
     public AdjustAdapter mAdjustAdapter;
     private final ToolsAdapter mEditingToolsAdapter = new ToolsAdapter(this);
+
+    public PhotoEditor photoEditor;
+    public PhotoEditorView photo_editor_view;
+    private RecyclerView recycler_view_adjust;
+    private RecyclerView recycler_view_brush_color;
+    public RecyclerView recycler_view_filter;
+    private RecyclerView recycler_view_magic_brush;
+    public RecyclerView recycler_view_overlay;
+    public RecyclerView recycler_view_tools;
+    public RelativeLayout relative_layout_add_sticker;
+    private RelativeLayout relative_layout_add_text;
+    public RelativeLayout relative_layout_wrapper_photo;
+    private SeekBar seekbar_adjust;
+    public SeekBar seekbar_alpha;
+    private SeekBar seekbar_brush_size;
+    private SeekBar seekbar_erase_size;
+    public SeekBar seekbar_filter;
+    public SeekBar seekbar_overlay;
+    public AddTextFragment.TextEditor textEditor;
+    public AddTextFragment textEditorDialogFragment;
+    private TextView text_view_draw;
+    private TextView text_view_magic;
+    private TextView text_view_neon;
+
     public CGENativeLibrary.LoadImageCallback mLoadImageCallback = new CGENativeLibrary.LoadImageCallback() {
         public Bitmap loadImage(String str, Object obj) {
             try {
@@ -155,28 +180,6 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
             }
         }
     };
-    public PhotoEditor photoEditor;
-    public PhotoEditorView photo_editor_view;
-    private RecyclerView recycler_view_adjust;
-    private RecyclerView recycler_view_brush_color;
-    public RecyclerView recycler_view_filter;
-    private RecyclerView recycler_view_magic_brush;
-    public RecyclerView recycler_view_overlay;
-    public RecyclerView recycler_view_tools;
-    public RelativeLayout relative_layout_add_sticker;
-    private RelativeLayout relative_layout_add_text;
-    public RelativeLayout relative_layout_wrapper_photo;
-    private SeekBar seekbar_adjust;
-    public SeekBar seekbar_alpha;
-    private SeekBar seekbar_brush_size;
-    private SeekBar seekbar_erase_size;
-    public SeekBar seekbar_filter;
-    public SeekBar seekbar_overlay;
-    public AddTextFragment.TextEditor textEditor;
-    public AddTextFragment textEditorDialogFragment;
-    private TextView text_view_draw;
-    private TextView text_view_magic;
-    private TextView text_view_neon;
 
 
     public void onCreate(Bundle bundle) {

@@ -2,6 +2,11 @@ package com.pic.editor.utils;
 
 import android.graphics.Bitmap;
 import android.os.Environment;
+
+import androidx.core.content.ContextCompat;
+
+import com.pic.editor.R;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
@@ -11,12 +16,12 @@ import java.util.Locale;
 public class FileUtils {
     public static File saveBitmapAsFile(Bitmap bitmap) {
         String file = Environment.getExternalStorageDirectory().toString();
-        File file2 = new File(file + "/PicShot");
+        File file2 = new File(file + "/"+R.string.app_name);
         if (!file2.exists()) {
             file2.mkdirs();
         }
         try {
-            File file3 = new File(file + "/PicShot/" + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ENGLISH).format(new Date()) + ".jpg");
+            File file3 = new File(file + "/"+R.string.app_name+"/" + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ENGLISH).format(new Date()) + ".jpg");
             file3.createNewFile();
             FileOutputStream fileOutputStream = new FileOutputStream(file3);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);

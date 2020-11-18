@@ -24,28 +24,22 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.pic.editor.R;
+import com.pic.editor.activities.EditImageActivity;
 import com.pic.editor.activities.ShareActivity;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET;
 import static com.pic.editor.activities.EditImageActivity.KEY_IMAGE_PATH;
+import static com.pic.editor.picker.PhotoPicker.KEY_SELECTED_PHOTOS;
 
 
 public class MyCreationAdapter extends BaseAdapter {
     public static ArrayList<String> imagegallary = new ArrayList();
     private static LayoutInflater inflater = null;
     private Activity activity;
-
-    static class ViewHolder {
-        ImageView imgDelete;
-        ImageView imgIcon;
-        ImageView imgSetAs;
-        ImageView imgShare;
-
-        ViewHolder() {
-        }
-    }
 
     public MyCreationAdapter(Activity dAct, ArrayList<String> dUrl) {
         this.activity = dAct;
@@ -82,125 +76,78 @@ public class MyCreationAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) row.getTag();
         }
+
+
         holder.imgIcon.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 new Options().inPreferredConfig = Config.ARGB_8888;
-                Intent intent = new Intent(MyCreationAdapter.this.activity, ShareActivity.class);
-                MyCreationAdapter myCreationAdapter = MyCreationAdapter.this;
-                intent.putExtra(KEY_IMAGE_PATH, MyCreationAdapter.imagegallary.get(position));
+                Intent intent = new Intent(MyCreationAdapter.this.activity, EditImageActivity.class);
+                intent.putExtra(KEY_SELECTED_PHOTOS, MyCreationAdapter.imagegallary.get(position));
                 MyCreationAdapter.this.activity.startActivity(intent);
                 MyCreationAdapter.this.activity.finish();
             }
         });
         holder.imgShare.setOnClickListener(new OnClickListener() {
 
-            class C14991 implements DialogInterface.OnClickListener {
-                C14991() {
-                }
-
-                public void onClick(DialogInterface dialog, int which) {
-                    MyCreationAdapter myCreationAdapter = MyCreationAdapter.this;
-                    StringBuilder stringBuilder = new StringBuilder();
-                    stringBuilder.append(R.string.app_name);
-                    stringBuilder.append(" Created By : ");
-                    stringBuilder.append("https://play.google.com/store/apps/details?id=");
-                    stringBuilder.append(MyCreationAdapter.this.activity.getPackageName());
-                    stringBuilder.append(Uri.parse(stringBuilder.toString()));
-                    String stringBuilder3 = stringBuilder.toString();
-                    myCreationAdapter.shareImage(stringBuilder3, MyCreationAdapter.imagegallary.get(position));
-                }
-            }
-
-            class C15002 implements DialogInterface.OnClickListener {
-                C15002() {
-                }
-
-                public void onClick(DialogInterface dialog, int which) {
-                }
-            }
-
             public void onClick(View v) {
-                Builder alertDialog = new Builder(MyCreationAdapter.this.activity);
-                alertDialog.setTitle("Share Image");
-                alertDialog.setMessage("Do you want to Share Creation?");
-                alertDialog.setIcon(R.drawable.share_icon);
-                alertDialog.setPositiveButton("YES", new C14991());
-                alertDialog.setNegativeButton("NO", new C15002());
-                alertDialog.show();
+                new Options().inPreferredConfig = Config.ARGB_8888;
+                Intent intent = new Intent(MyCreationAdapter.this.activity, ShareActivity.class);
+                intent.putExtra(KEY_IMAGE_PATH, MyCreationAdapter.imagegallary.get(position));
+                MyCreationAdapter.this.activity.startActivity(intent);
+                MyCreationAdapter.this.activity.finish();
             }
         });
         holder.imgSetAs.setOnClickListener(new OnClickListener() {
-
-            class C15031 implements DialogInterface.OnClickListener {
-                C15031() {
-                }
-
-                public void onClick(DialogInterface dialog, int which) {
-                    MyCreationAdapter myCreationAdapter = MyCreationAdapter.this;
-                    MyCreationAdapter myCreationAdapter2 = MyCreationAdapter.this;
-                    myCreationAdapter.setWallpaper("", MyCreationAdapter.imagegallary.get(position));
-                    MyCreationAdapter.this.notifyDataSetChanged();
-                }
-            }
-
-            class C15042 implements DialogInterface.OnClickListener {
-                C15042() {
-                }
-
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            }
 
             public void onClick(View v) {
                 Builder alertDialog = new Builder(MyCreationAdapter.this.activity);
                 alertDialog.setTitle("Set As Wallpaper!");
                 alertDialog.setMessage("Do you want to Set As Wallpaper??");
                 alertDialog.setIcon(R.drawable.ic_wallpaper);
-                alertDialog.setPositiveButton("YES", new C15031());
-                alertDialog.setNegativeButton("NO", new C15042());
+                alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MyCreationAdapter myCreationAdapter = MyCreationAdapter.this;
+                        myCreationAdapter.setWallpaper("", MyCreationAdapter.imagegallary.get(position));
+                        MyCreationAdapter.this.notifyDataSetChanged();
+                    }
+                });
+                alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
                 alertDialog.show();
             }
         });
         holder.imgDelete.setOnClickListener(new OnClickListener() {
-
-            /* renamed from: com.apptopstudio.photo.collagemaker.photoeditor.picmerger.share.MyCreationAdapter$4$C15061 */
-            class C15061 implements DialogInterface.OnClickListener {
-                C15061() {
-                }
-
-                public void onClick(DialogInterface dialog, int which) {
-                    MyCreationAdapter myCreationAdapter = MyCreationAdapter.this;
-                    File fD = new File(MyCreationAdapter.imagegallary.get(position));
-                    if (fD.exists()) {
-                        fD.delete();
-                    }
-                    myCreationAdapter = MyCreationAdapter.this;
-                    MyCreationAdapter.imagegallary.remove(position);
-                    MyCreationAdapter.this.notifyDataSetChanged();
-                    myCreationAdapter = MyCreationAdapter.this;
-                    if (MyCreationAdapter.imagegallary.size() == 0) {
-                        Toast.makeText(MyCreationAdapter.this.activity, "No Images Found", Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-
-            class C15072 implements DialogInterface.OnClickListener {
-                C15072() {
-                }
-
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            }
 
             public void onClick(View v) {
                 Builder alertDialog = new Builder(MyCreationAdapter.this.activity);
                 alertDialog.setTitle("Confirm Delete!");
                 alertDialog.setMessage("Are you sure you want delete this?");
                 alertDialog.setIcon(R.drawable.ic_baseline_delete_24);
-                alertDialog.setPositiveButton("YES", new C15061());
-                alertDialog.setNegativeButton("NO", new C15072());
+                alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        File fD = new File(MyCreationAdapter.imagegallary.get(position));
+                        if (fD.exists()) {
+                            fD.delete();
+                        }
+                        MyCreationAdapter.imagegallary.remove(position);
+                        MyCreationAdapter.this.notifyDataSetChanged();
+                        if (MyCreationAdapter.imagegallary.size() == 0) {
+                            Toast.makeText(MyCreationAdapter.this.activity, "No Images Found", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+                alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
                 alertDialog.show();
             }
         });
@@ -233,9 +180,19 @@ public class MyCreationAdapter extends BaseAdapter {
                 shareIntent.setType("image/*");
                 shareIntent.putExtra("android.intent.extra.TEXT", title);
                 shareIntent.putExtra("android.intent.extra.STREAM", uri);
-                shareIntent.addFlags(524288);
+                shareIntent.addFlags(FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
                 MyCreationAdapter.this.activity.startActivity(Intent.createChooser(shareIntent, "Share Image Using"));
             }
         });
+    }
+
+    static class ViewHolder {
+        ImageView imgDelete;
+        ImageView imgIcon;
+        ImageView imgSetAs;
+        ImageView imgShare;
+
+        ViewHolder() {
+        }
     }
 }
