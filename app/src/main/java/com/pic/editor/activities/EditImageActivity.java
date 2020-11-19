@@ -153,6 +153,23 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
     private TextView text_view_magic;
     private TextView text_view_neon;
 
+    private Bitmap addWaterMark(Bitmap src) {
+        int w = src.getWidth();
+        int h = src.getHeight();
+        Bitmap result = Bitmap.createBitmap(w, h, src.getConfig());
+        Canvas canvas = new Canvas(result);
+        canvas.drawBitmap(src, 0, 0, null);
+
+        Bitmap waterMark = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
+        //  canvas.drawBitmap(waterMark, 0, 0, null);
+        int startX= (canvas.getWidth()-waterMark.getWidth());//for horisontal position
+        int startY=(canvas.getHeight()-waterMark.getHeight());//for vertical position
+        canvas.drawBitmap(waterMark,startX,startY,null);
+
+        return result;
+    }
+
+
     public CGENativeLibrary.LoadImageCallback mLoadImageCallback = new CGENativeLibrary.LoadImageCallback() {
         public Bitmap loadImage(String str, Object obj) {
             try {
@@ -1457,7 +1474,8 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
         }
 
         public void onPostExecute(Bitmap bitmap) {
-            photo_editor_view.setImageSource(bitmap);
+            Bitmap waterMarkBitmapt = addWaterMark(bitmap);
+            photo_editor_view.setImageSource(waterMarkBitmapt);
             updateLayout();
         }
     }
