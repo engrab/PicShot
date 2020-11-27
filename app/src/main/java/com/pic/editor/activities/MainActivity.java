@@ -39,12 +39,14 @@ import java.util.List;
 public class MainActivity extends BaseActivity {
     public static final int REQUEST_IMAGE_CAPTURE = 100;
     private ImageCaptureManager imageCaptureManager;
+    boolean doubleBackToExitPressedOnce = false;
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
+
         public final void onClick(View view) {
             switch (view.getId()) {
-                case R.id.relative_layout_edit_photo:
-                case R.id.relatve_layout_edit:
+
+                case R.id.iv_edit:
                     Dexter.withContext(MainActivity.this).withPermissions("android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE").withListener(new MultiplePermissionsListener() {
                         public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
                             if (multiplePermissionsReport.areAllPermissionsGranted()) {
@@ -64,8 +66,8 @@ public class MainActivity extends BaseActivity {
                         }
                     }).onSameThread().check();
                     return;
-                case R.id.relative_layout_take_photo:
-                case R.id.relatve_layout_camera:
+
+                case R.id.iv_camera:
                     Dexter.withContext(MainActivity.this).withPermissions("android.permission.CAMERA", "android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE").withListener(new MultiplePermissionsListener() {
                         public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
                             if (multiplePermissionsReport.areAllPermissionsGranted()) {
@@ -86,8 +88,7 @@ public class MainActivity extends BaseActivity {
                     }).onSameThread().check();
                     return;
 
-                case R.id.relative_layout_mycreation:
-                case R.id.relatve_layout_creation:
+                case R.id.iv_mywork:
                     startActivity(new Intent(MainActivity.this,  MyCreationActivity.class));
                     return;
                 default:
@@ -104,13 +105,11 @@ public class MainActivity extends BaseActivity {
             getWindow().setNavigationBarColor(Color.parseColor("#424160"));
         }
         setContentView(R.layout.activity_main);
-        findViewById(R.id.relative_layout_edit_photo).setOnClickListener(this.onClickListener);
-        findViewById(R.id.relatve_layout_edit).setOnClickListener(this.onClickListener);
-        findViewById(R.id.relative_layout_take_photo).setOnClickListener(this.onClickListener);
-        findViewById(R.id.relatve_layout_camera).setOnClickListener(this.onClickListener);
-        findViewById(R.id.relative_layout_mycreation).setOnClickListener(this.onClickListener);
-        findViewById(R.id.relatve_layout_creation).setOnClickListener(this.onClickListener);
-        this.imageCaptureManager = new ImageCaptureManager(this);
+        findViewById(R.id.iv_camera).setOnClickListener(this.onClickListener);
+        findViewById(R.id.iv_edit).setOnClickListener(this.onClickListener);
+        findViewById(R.id.iv_mywork).setOnClickListener(this.onClickListener);
+
+        imageCaptureManager = new ImageCaptureManager(this);
         if (SharePreferenceUtil.isPurchased(getApplicationContext())) {
             findViewById(R.id.image_view_remove_ads).setVisibility(View.GONE);
         }
@@ -214,7 +213,22 @@ public class MainActivity extends BaseActivity {
         popupMenu.show();
     }
 
+    @Override
     public void onBackPressed() {
-        finish();
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 }
