@@ -21,7 +21,7 @@ import java.util.List;
 
 public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoViewHolder> {
     private int columnNumber;
-    private RequestManager glide;
+    private final RequestManager glide;
     private boolean hasCamera;
     private int imageSize;
     public View.OnClickListener onCameraClickListener;
@@ -87,7 +87,7 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
             if (AndroidLifecycleUtils.canLoadImage(photoViewHolder.image_view_picker.getContext())) {
                 RequestOptions requestOptions = new RequestOptions();
                 int i2 = this.imageSize;
-                ((RequestOptions) ((RequestOptions) ((RequestOptions) requestOptions.centerCrop()).dontAnimate()).override(i2, i2)).placeholder((int) R.drawable.grey_background);
+                requestOptions.centerCrop().dontAnimate().override(i2, i2).placeholder(R.drawable.grey_background);
                 this.glide.setDefaultRequestOptions(requestOptions).load(new File(photo.getPath())).thumbnail(0.5f).into(photoViewHolder.image_view_picker);
             }
             boolean isSelected = isSelected(photo);
@@ -114,7 +114,7 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
 
         public PhotoViewHolder(View view) {
             super(view);
-            this.image_view_picker = (ImageView) view.findViewById(R.id.image_view_picker);
+            this.image_view_picker = view.findViewById(R.id.image_view_picker);
             View findViewById = view.findViewById(R.id.image_view_selected);
             this.image_view_selected = findViewById;
             findViewById.setVisibility(View.GONE);
@@ -150,7 +150,7 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
     }
 
     public void onViewRecycled(PhotoViewHolder photoViewHolder) {
-        this.glide.clear((View) photoViewHolder.image_view_picker);
+        this.glide.clear(photoViewHolder.image_view_picker);
         super.onViewRecycled(photoViewHolder);
     }
 }

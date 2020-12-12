@@ -1,8 +1,12 @@
 package com.pic.editor.activities;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,10 +14,13 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -40,6 +47,8 @@ public class MainActivity extends BaseActivity {
     public static final int REQUEST_IMAGE_CAPTURE = 100;
     private ImageCaptureManager imageCaptureManager;
     boolean doubleBackToExitPressedOnce = false;
+    TextView textMega, textShot;
+    LinearLayout llBackground;
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
 
@@ -89,7 +98,7 @@ public class MainActivity extends BaseActivity {
                     return;
 
                 case R.id.iv_mywork:
-                    startActivity(new Intent(MainActivity.this,  MyCreationActivity.class));
+                    startActivity(new Intent(MainActivity.this, MyCreationActivity.class));
                     return;
                 default:
                     return;
@@ -105,22 +114,30 @@ public class MainActivity extends BaseActivity {
             getWindow().setNavigationBarColor(Color.parseColor("#424160"));
         }
         setContentView(R.layout.activity_main);
+        llBackground = findViewById(R.id.ll_main_ctivity);
+
         findViewById(R.id.iv_camera).setOnClickListener(this.onClickListener);
         findViewById(R.id.iv_edit).setOnClickListener(this.onClickListener);
         findViewById(R.id.iv_mywork).setOnClickListener(this.onClickListener);
+        textMega = findViewById(R.id.text_mega);
+        textShot = findViewById(R.id.text_shot);
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.font_logo);
+        textShot.setTypeface(typeface);
+        textMega.setTypeface(typeface);
 
         imageCaptureManager = new ImageCaptureManager(this);
-        if (SharePreferenceUtil.isPurchased(getApplicationContext())) {
-            findViewById(R.id.image_view_remove_ads).setVisibility(View.GONE);
-        }
+
         findViewById(R.id.image_view_about).setOnClickListener(new View.OnClickListener() {
             public final void onClick(View view) {
                 popupMenu(view);
             }
         });
         if (Constants.SHOW_ADS) {
+
             AdmobAds.loadNativeAds(this, (View) null);
+
         } else {
+
             findViewById(R.id.adsContainer).setVisibility(View.GONE);
         }
     }
@@ -142,9 +159,15 @@ public class MainActivity extends BaseActivity {
                     imageCaptureManager.galleryAddPic();
                 }
             });
-            Intent intent = new Intent(getApplicationContext(), EditImageActivity.class);
-            intent.putExtra(PhotoPicker.KEY_SELECTED_PHOTOS, imageCaptureManager.getCurrentPhotoPath());
-            startActivity(intent);
+            if (resultCode == RESULT_OK){
+
+                Intent intent = new Intent(getApplicationContext(), EditImageActivity.class);
+                intent.putExtra(PhotoPicker.KEY_SELECTED_PHOTOS, imageCaptureManager.getCurrentPhotoPath());
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(this, "Please Capture Image", Toast.LENGTH_LONG).show();
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -153,11 +176,19 @@ public class MainActivity extends BaseActivity {
     public void onResume() {
         super.onResume();
         if (AdsUtils.isNetworkAvailabel(getApplicationContext())) {
+
+            AdmobAds.loadNativeAds(this, (View) null);
+            llBackground.setBackgroundResource(R.drawable.ic_main_bg);
+
             if (!SharePreferenceUtil.isRated(getApplicationContext()) && SharePreferenceUtil.getCounter(getApplicationContext()) % 6 == 0) {
                 new RateDialog(this, false).show();
             }
             SharePreferenceUtil.increateCounter(getApplicationContext());
+        } else {
+            llBackground.setBackgroundResource(R.drawable.ic_girl);
+
         }
+
     }
 
     public void takePhotoFromCamera() {
@@ -227,7 +258,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void run() {
-                doubleBackToExitPressedOnce=false;
+                doubleBackToExitPressedOnce = false;
             }
         }, 2000);
     }

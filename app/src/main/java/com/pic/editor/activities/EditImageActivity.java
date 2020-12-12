@@ -154,19 +154,21 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
     private TextView text_view_neon;
 
     private Bitmap addWaterMark(Bitmap src) {
-        int w = src.getWidth();
-        int h = src.getHeight();
-        Bitmap result = Bitmap.createBitmap(w, h, src.getConfig());
-        Canvas canvas = new Canvas(result);
-        canvas.drawBitmap(src, 0, 0, null);
 
-        Bitmap waterMark = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
-        //  canvas.drawBitmap(waterMark, 0, 0, null);
-        int startX= (canvas.getWidth()-waterMark.getWidth());//for horisontal position
-        int startY=(canvas.getHeight()-waterMark.getHeight());//for vertical position
-        canvas.drawBitmap(waterMark,startX,startY,null);
+            int w = src.getWidth();
+            int h = src.getHeight();
+            Bitmap result = Bitmap.createBitmap(w, h, src.getConfig());
+            Canvas canvas = new Canvas(result);
+            canvas.drawBitmap(src, 0, 0, null);
 
-        return result;
+            Bitmap waterMark = BitmapFactory.decodeResource(getResources(), R.drawable.ic_water_mark);
+            //  canvas.drawBitmap(waterMark, 0, 0, null);
+            int startX = (canvas.getWidth() - waterMark.getWidth());//for horisontal position
+            int startY = (canvas.getHeight() - waterMark.getHeight());//for vertical position
+            canvas.drawBitmap(waterMark, startX, startY, null);
+            return result;
+
+
     }
 
 
@@ -1474,29 +1476,33 @@ public class EditImageActivity extends BaseActivity implements OnPhotoEditorList
         }
 
         public void onPostExecute(Bitmap bitmap) {
-            Bitmap waterMarkBitmapt = addWaterMark(bitmap);
+            Bitmap waterMarkBitmapt = null;
+            if (bitmap != null) {
+
+                waterMarkBitmapt = addWaterMark(bitmap);
+            }
             photo_editor_view.setImageSource(waterMarkBitmapt);
             updateLayout();
         }
     }
-    public static Bitmap mark(Bitmap src, String watermark, Point location, int color, int alpha, int size, boolean underline) {
-        int w = src.getWidth();
-        int h = src.getHeight();
-        Bitmap result = Bitmap.createBitmap(w, h, src.getConfig());
-
-        Canvas canvas = new Canvas(result);
-        canvas.drawBitmap(src, 0, 0, null);
-
-        Paint paint = new Paint();
-        paint.setColor(color);
-        paint.setAlpha(alpha);
-        paint.setTextSize(size);
-        paint.setAntiAlias(true);
-        paint.setUnderlineText(underline);
-        canvas.drawText(watermark, location.x, location.y, paint);
-
-        return result;
-    }
+//    public static Bitmap mark(Bitmap src, String watermark, Point location, int color, int alpha, int size, boolean underline) {
+//        int w = src.getWidth();
+//        int h = src.getHeight();
+//        Bitmap result = Bitmap.createBitmap(w, h, src.getConfig());
+//
+//        Canvas canvas = new Canvas(result);
+//        canvas.drawBitmap(src, 0, 0, null);
+//
+//        Paint paint = new Paint();
+//        paint.setColor(color);
+//        paint.setAlpha(alpha);
+//        paint.setTextSize(size);
+//        paint.setAntiAlias(true);
+//        paint.setUnderlineText(underline);
+//        canvas.drawText(watermark, location.x, location.y, paint);
+//
+//        return result;
+//    }
 
     public void updateLayout() {
 

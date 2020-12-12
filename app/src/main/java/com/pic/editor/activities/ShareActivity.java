@@ -197,7 +197,7 @@ public class ShareActivity extends BaseActivity implements View.OnClickListener 
                 Intent intent4 = new Intent();
                 intent4.setAction("android.intent.action.VIEW");
                 intent4.setDataAndType(FileProvider.getUriForFile(getApplicationContext(), "com.pic.editor.provider", this.file), "image/*");
-                intent4.addFlags(EXTRA_DOCK_STATE_LE_DESK);
+                intent4.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent4);
             }
         }

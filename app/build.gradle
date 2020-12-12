@@ -18,8 +18,21 @@ android {
 
     buildTypes {
         release {
+            minifyEnabled true
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue 'string', 'admob_app_id', '"ca-app-pub-4949281117401322~5234115460"'
+            resValue 'string', 'admob_banner_id', '"ca-app-pub-4949281117401322/9534460738"'
+            resValue 'string', 'admob_inter_id', '"ca-app-pub-4949281117401322/6797450900"'
+            resValue 'string', 'admob_native_id', '"ca-app-pub-3940256099942544/2247696110"'
+        }
+        debug {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            resValue 'string', 'admob_app_id', '"ca-app-pub-3940256099942544~3347511713"'
+            resValue 'string', 'admob_banner_id', '"ca-app-pub-3940256099942544/6300978111"'
+            resValue 'string', 'admob_inter_id', '"ca-app-pub-3940256099942544/1033173712"'
+            resValue 'string', 'admob_native_id', '"ca-app-pub-3940256099942544/2247696110"'
         }
     }
     compileOptions {

@@ -91,15 +91,18 @@ public class AdmobAds {
     }
 
     public static void loadNativeAds(Activity activity, final View view) {
-        final ViewGroup viewGroup = (ViewGroup) activity.findViewById(R.id.admob_native_container);
-        final UnifiedNativeAdView unifiedNativeAdView = (UnifiedNativeAdView) activity.findViewById(R.id.native_ad_view);
-        unifiedNativeAdView.setMediaView((MediaView) unifiedNativeAdView.findViewById(R.id.media_view));
+        final ViewGroup viewGroup = activity.findViewById(R.id.admob_native_container);
+        final UnifiedNativeAdView unifiedNativeAdView = activity.findViewById(R.id.native_ad_view);
+        unifiedNativeAdView.setMediaView(unifiedNativeAdView.findViewById(R.id.media_view));
         unifiedNativeAdView.setHeadlineView(unifiedNativeAdView.findViewById(R.id.primary));
         unifiedNativeAdView.setBodyView(unifiedNativeAdView.findViewById(R.id.secondary));
         unifiedNativeAdView.setCallToActionView(unifiedNativeAdView.findViewById(R.id.cta));
         unifiedNativeAdView.setIconView(unifiedNativeAdView.findViewById(R.id.icon));
         unifiedNativeAdView.setAdvertiserView(unifiedNativeAdView.findViewById(R.id.tertiary));
-        new AdLoader.Builder((Context) activity, activity.getString(R.string.admob_native_id)).forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+
+        new AdLoader.Builder(activity, activity.getString(R.string.admob_native_id))
+                .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+
             public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
                 AdmobAds.populateNativeAdView(unifiedNativeAd, unifiedNativeAdView);
                 viewGroup.setVisibility(View.VISIBLE);
@@ -112,6 +115,7 @@ public class AdmobAds {
             public void onAdLoaded() {
                 super.onAdLoaded();
             }
+
         }).build().loadAd(new AdRequest.Builder().build());
     }
 
@@ -119,13 +123,13 @@ public class AdmobAds {
         final ViewGroup viewGroup;
         final UnifiedNativeAdView unifiedNativeAdView;
         if (view != null) {
-            viewGroup = (ViewGroup) view.findViewById(R.id.admob_native_container);
-            unifiedNativeAdView = (UnifiedNativeAdView) view.findViewById(R.id.native_ad_view);
+            viewGroup = view.findViewById(R.id.admob_native_container);
+            unifiedNativeAdView = view.findViewById(R.id.native_ad_view);
         } else {
-            viewGroup = (ViewGroup) activity.findViewById(R.id.admob_native_container);
-            unifiedNativeAdView = (UnifiedNativeAdView) activity.findViewById(R.id.native_ad_view);
+            viewGroup = activity.findViewById(R.id.admob_native_container);
+            unifiedNativeAdView = activity.findViewById(R.id.native_ad_view);
         }
-        MediaView mediaView = (MediaView) unifiedNativeAdView.findViewById(R.id.media_view);
+        MediaView mediaView = unifiedNativeAdView.findViewById(R.id.media_view);
         if (mediaView != null) {
             unifiedNativeAdView.setMediaView(mediaView);
         }
@@ -134,7 +138,7 @@ public class AdmobAds {
         unifiedNativeAdView.setCallToActionView(unifiedNativeAdView.findViewById(R.id.cta));
         unifiedNativeAdView.setIconView(unifiedNativeAdView.findViewById(R.id.icon));
         unifiedNativeAdView.setAdvertiserView(unifiedNativeAdView.findViewById(R.id.tertiary));
-        new AdLoader.Builder((Context) activity, activity.getString(R.string.admob_native_id)).forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+        new AdLoader.Builder(activity, activity.getString(R.string.admob_native_id)).forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
             public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
                 AdmobAds.populateNativeAdView(unifiedNativeAd, unifiedNativeAdView);
                 viewGroup.setVisibility(View.VISIBLE);
@@ -172,6 +176,6 @@ public class AdmobAds {
     }
 
     public static void hideNativeAds(Activity activity) {
-        ((View) ((ViewGroup) activity.findViewById(R.id.admob_native_container)).getParent()).setVisibility(View.GONE);
+        ((View) activity.findViewById(R.id.admob_native_container).getParent()).setVisibility(View.GONE);
     }
 }
