@@ -16,18 +16,11 @@
     <string name="dialog_discard_title">Changes will not be saved. Do you want to proceed?</string>
     <string name="discard">Discard</string>
     <string name="edit">Edit</string>
-    <string name="fab_transformation_scrim_behavior">com.google.android.material.transformation.FabTransformationScrimBehavior</string>
-    <string name="fab_transformation_sheet_behavior">com.google.android.material.transformation.FabTransformationSheetBehavior</string>
 
     <string name="feedback">Feed back</string>
     <string name="gallery">Gallery</string>
 
-    <string name="mtrl_chip_close_icon_content_description">Remove %1$s</string>
-    <string name="password_toggle_content_description">Show password</string>
-    <string name="path_password_eye">M12,4.5C7,4.5 2.73,7.61 1,12c1.73,4.39 6,7.5 11,7.5s9.27,-3.11 11,-7.5c-1.73,-4.39 -6,-7.5 -11,-7.5zM12,17c-2.76,0 -5,-2.24 -5,-5s2.24,-5 5,-5 5,2.24 5,5 -2.24,5 -5,5zM12,9c-1.66,0 -3,1.34 -3,3s1.34,3 3,3 3,-1.34 3,-3 -1.34,-3 -3,-3z</string>
-    <string name="path_password_eye_mask_strike_through">M2,4.27 L19.73,22 L22.27,19.46 L4.54,1.73 L4.54,1 L23,1 L23,23 L1,23 L1,4.27 Z</string>
-    <string name="path_password_eye_mask_visible">M2,4.27 L2,4.27 L4.54,1.73 L4.54,1.73 L4.54,1 L23,1 L23,23 L1,23 L1,4.27 Z</string>
-    <string name="path_password_strike_through">M3.27,4.27 L19.74,20.74</string>
+
     <string name="press_back">Please press back again to exit</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="rate_us">Rate us</string>
@@ -35,13 +28,7 @@
     <string name="rating_dialog_maybe_later">Maybe later</string>
     <string name="rating_dialog_submit">Submit</string>
     <string name="rating_promote">If MegaShot makes you happy and satisfy. Please give us 5 stars</string>
-    <string name="s1">Save image</string>
-    <string name="s2">Allow Ad to store image in Picture gallery?</string>
-    <string name="s3">Accept</string>
-    <string name="s4">Decline</string>
-    <string name="s5">Create calendar event</string>
-    <string name="s6">Allow Ad to create a calendar event?</string>
-    <string name="s7">Test Ad</string>
+
     <string name="saturation">Saturation</string>
     <string name="save">SAVE</string>
     <string name="search_menu_title">Search</string>
