@@ -14,7 +14,7 @@
 
         <fragment
             android:id="@+id/fragment_photo_pager"
-            android:name="com.pic.editor.picker.fragment.ImagePagerFragment"
+            android:name="com.megashot.onlinephotoeditor.piceditor.texteditor.imageeditor.picker.fragment.ImagePagerFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/cardColorDarkContent" />

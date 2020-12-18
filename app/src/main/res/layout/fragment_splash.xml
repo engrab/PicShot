@@ -23,7 +23,7 @@
             android:layout_gravity="center"
             android:adjustViewBounds="true" />
 
-        <com.pic.editor.splash.SplashView
+        <com.megashot.onlinephotoeditor.piceditor.texteditor.imageeditor.splash.SplashView
             android:id="@+id/splash_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

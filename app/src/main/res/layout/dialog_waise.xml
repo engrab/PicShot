@@ -27,7 +27,7 @@
                 android:adjustViewBounds="true"
                 android:src="@drawable/waise_instruction" />
 
-            <com.pic.editor.filters.DegreeSeekBar
+            <com.megashot.onlinephotoeditor.piceditor.texteditor.imageeditor.filters.DegreeSeekBar
                 android:id="@+id/degree_seekBar_control"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"

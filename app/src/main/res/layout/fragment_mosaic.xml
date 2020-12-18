@@ -22,7 +22,7 @@
             android:layout_gravity="center"
             android:adjustViewBounds="true" />
 
-        <com.pic.editor.views.MosaicView
+        <com.megashot.onlinephotoeditor.piceditor.texteditor.imageeditor.views.MosaicView
             android:id="@+id/mosaic_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

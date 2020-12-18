@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">MegaShot</string>
+    <string name="app_name">Mega Shot, Online Photo Editor</string>
     <string name="policy_url">https://www.google.com/</string>
     <string name="developerId">Mega+Free+Apps+Developers</string>
     <string name="email_feedback">email@gmail.com</string>

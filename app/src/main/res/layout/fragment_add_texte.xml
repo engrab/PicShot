@@ -27,7 +27,7 @@
             android:textAlignment="gravity" />
     </LinearLayout>
 
-    <com.pic.editor.custom.CustomEditText
+    <com.megashot.onlinephotoeditor.piceditor.texteditor.imageeditor.custom.CustomEditText
         android:id="@+id/add_text_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -226,7 +226,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.pic.editor.picker.CarouselPicker
+                    <com.megashot.onlinephotoeditor.piceditor.texteditor.imageeditor.picker.CarouselPicker
                         android:id="@+id/color_carousel_picker"
                         android:layout_width="match_parent"
                         android:layout_height="25dp"
@@ -274,7 +274,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.pic.editor.picker.CarouselPicker
+                    <com.megashot.onlinephotoeditor.piceditor.texteditor.imageeditor.picker.CarouselPicker
                         android:id="@+id/texture_carousel_picker"
                         android:layout_width="match_parent"
                         android:layout_height="25dp"
@@ -335,7 +335,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.pic.editor.picker.CarouselPicker
+                    <com.megashot.onlinephotoeditor.piceditor.texteditor.imageeditor.picker.CarouselPicker
                         android:id="@+id/background_carousel_picker"
                         android:layout_width="match_parent"
                         android:layout_height="25dp"
